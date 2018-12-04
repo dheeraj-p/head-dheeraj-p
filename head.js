@@ -1,7 +1,7 @@
 const {
-       getLinesFromHead,
-       read
-      } = require('./src/head_lib.js');
+  getLinesFromHead,
+  read
+} = require('./src/head_lib.js');
 const reader = require('fs').readFileSync;
 const {newFile} = require('./src/file.js');
 
