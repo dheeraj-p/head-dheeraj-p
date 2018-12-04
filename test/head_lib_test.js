@@ -1,6 +1,7 @@
 const assert = require('assert');
 const {getLinesFromHead,
-       getCharsFromHead} = require('../src/head_lib.js');
+       getCharsFromHead,
+       read} = require('../src/head_lib.js');
 const {newFile} = require('../src/file.js');
 
 describe("getLinesFromHead",function(){
@@ -79,5 +80,26 @@ describe("getCharsFromHead", function(){
                     "so that I can test my function.";
     let expectedOutput = ['T','h','i','s',' ','i','s',' ','f','i','l','e',' ','\n'];
     assert.deepEqual(getCharsFromHead(file, 14), expectedOutput); 
+  });
+});
+
+const readHelloWorld = function(file, encoding) {
+  if(file && encoding) {
+    return "Hello World";
+  }
+};
+
+const readEmptyFile = function(file, encoding) {
+  if(file && encoding) {
+    return "";
+  }
+}
+describe("read", function(){
+  it("should return the content of provided file when file and encoding is valid", function(){
+    assert.deepEqual(read(readHelloWorld, "helloworld.txt", "utf-8"), "Hello World"); 
+  });
+
+  it("should return empty string when empty file is provided", function(){
+    assert.deepEqual(read(readEmptyFile, "emptyFile.txt", "utf-8"), ""); 
   });
 });

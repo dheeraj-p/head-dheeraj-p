@@ -1,5 +1,4 @@
 const {newFile} = require('./file.js');
-const {call} = require('./head_utils.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10){
   let lines = file.getLines();
@@ -11,5 +10,10 @@ const getCharsFromHead = function(file, numberOfCharacters){
   return characters.slice(0, numberOfCharacters);
 }
 
+const read = function(reader, filepath, encoding){
+  return reader(filepath, encoding);
+}
+
 exports.getLinesFromHead = getLinesFromHead;
 exports.getCharsFromHead = getCharsFromHead;
+exports.read = read;
