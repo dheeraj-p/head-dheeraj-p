@@ -10,7 +10,7 @@ const main = function(){
   let file = newFile();
   file.name = filePath;
   file.contents = read(reader, filePath, "utf-8");
-  let headContents = getLinesFromHead(file).join("\n");
+  let headContents = getLinesFromHead(file);
   console.log(headContents);
 }
 

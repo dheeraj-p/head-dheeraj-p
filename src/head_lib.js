@@ -2,7 +2,7 @@ const {newFile} = require('./file.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10){
   let lines = file.getLines();
-  return lines.slice(0, numberOfLines);
+  return lines.slice(0, numberOfLines).join("\n");
 }
 
 const getCharsFromHead = function(file, numberOfCharacters){
