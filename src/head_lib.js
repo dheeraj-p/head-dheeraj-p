@@ -6,4 +6,10 @@ const getLinesFromHead = function(file, numberOfLines = 10){
   return lines.slice(0, numberOfLines);
 }
 
+const getCharsFromHead = function(file, numberOfCharacters){
+  let characters = file.contents.split('');
+  return characters.slice(0, numberOfCharacters);
+}
+
 exports.getLinesFromHead = getLinesFromHead
+exports.getCharsFromHead = getCharsFromHead

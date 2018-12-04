@@ -1,9 +1,10 @@
 const assert = require('assert');
-const {getLinesFromHead} = require('../src/head_lib.js');
+const {getLinesFromHead,
+       getCharsFromHead} = require('../src/head_lib.js');
 const {newFile} = require('../src/file.js');
 
 describe("getLinesFromHead",function(){
-  it("should return empty array when any number of lines are required of an empty file", function(){
+  it("should return no lines when any number of lines are required of an empty file", function(){
     let file = newFile();
     assert.deepEqual(getLinesFromHead(file, 1), ['']); 
   });
@@ -59,3 +60,24 @@ describe("getLinesFromHead",function(){
     assert.deepEqual(getLinesFromHead(file, 5), expectedOutput); 
   });
 })
+
+describe("getCharsFromHead", function(){
+  it("Should return no characters when any number of characters of a empty file",function(){
+    let file = newFile();
+    assert.deepEqual(getCharsFromHead(file, 4), []); 
+  });
+
+  it("Should return first N characters of one liner file",function(){
+    let file = newFile();
+    file.contents = "This is one liner file";
+    assert.deepEqual(getCharsFromHead(file, 4), ['T','h','i','s']); 
+  });
+
+  it("Should return first N characters of a multi liner file including \\n",function(){
+    let file = newFile();
+    file.contents = "This is file \n contains multiple lines\n" +
+                    "so that I can test my function.";
+    let expectedOutput = ['T','h','i','s',' ','i','s',' ','f','i','l','e',' ','\n'];
+    assert.deepEqual(getCharsFromHead(file, 14), expectedOutput); 
+  });
+});
