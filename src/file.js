@@ -1,5 +1,5 @@
-const newFile = function(){
-  let file = {name: '', contents: ''};
+const newFile = function(name, contents){
+  let file = {name, contents};
   file.getLines = getLines.bind(file);
   return file;
 }

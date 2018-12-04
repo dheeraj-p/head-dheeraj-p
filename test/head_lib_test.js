@@ -6,13 +6,12 @@ const {newFile} = require('../src/file.js');
 
 describe("getLinesFromHead",function(){
   it("should return no lines when any number of lines are required of an empty file", function(){
-    let file = newFile();
+    let file = newFile('testFile', '');
     assert.deepEqual(getLinesFromHead(file, 1), ''); 
   });
 
   it("should return 10 lines by default when number of lines is not specified", function(){
-    let file = newFile();
-    file.contents = "This is line 1\n" +
+    let fileContents = "This is line 1\n" +
                     "This is line 2\n" +
                     "This is line 3\n" +
                     "This is line 4\n" +
@@ -23,6 +22,8 @@ describe("getLinesFromHead",function(){
                     "This is line 9\n" +
                     "This is line 10\n" +
                     "This is line 11";
+
+    let file = newFile('testFile', fileContents);
 
     let expectedOutput = "This is line 1\n" +
                          "This is line 2\n" +
@@ -39,8 +40,7 @@ describe("getLinesFromHead",function(){
   });
 
   it("should return lines when number of lines is specified for a file", function(){
-    let file = newFile();
-    file.contents = "This is line 1\n" +
+    let fileContents = "This is line 1\n" +
                     "This is line 2\n" +
                     "This is line 3\n" +
                     "This is line 4\n" +
@@ -51,6 +51,8 @@ describe("getLinesFromHead",function(){
                     "This is line 9\n" +
                     "This is line 10\n" +
                     "This is line 11";
+
+    let file = newFile('testFile', fileContents);
 
     let expectedOutput = "This is line 1\n" +
                          "This is line 2\n" +
@@ -64,20 +66,19 @@ describe("getLinesFromHead",function(){
 
 describe("getCharsFromHead", function(){
   it("Should return empty string when an empty file is given",function(){
-    let file = newFile();
+    let file = newFile('testFile', '');
     assert.deepEqual(getCharsFromHead(file, 4), ''); 
   });
 
   it("Should return first N characters of one liner file",function(){
-    let file = newFile();
-    file.contents = "This is one liner file";
+    let file = newFile('testFile', 'This is one liner file');
     assert.deepEqual(getCharsFromHead(file, 4), 'This'); 
   });
 
   it("Should return first N characters of a multi liner file including \\n",function(){
-    let file = newFile();
-    file.contents = "This is file \n contains multiple lines\n" +
+    let fileContents = "This is file \n contains multiple lines\n" +
                     "so that I can test my function.";
+    let file = newFile('testFile', fileContents);
     assert.deepEqual(getCharsFromHead(file, 14), 'This is file \n'); 
   });
 });
