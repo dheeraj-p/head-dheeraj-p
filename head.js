@@ -1,18 +1,17 @@
-/* 
-  Usage:
-  node ./head.js file1
-  node ./head.js -n5 file1
-  node ./head.js -n 5 file1
-  node ./head.js -5 file1
-  node ./head.js file1 file2
-  node ./head.js -n 5 file1 file2
-  node ./head.js -n5 file1 file2
-  node ./head.js -5 file1 file2 
-  node ./head.js -c5 file1
-  node ./head.js -c 5 file1
-  node ./head.js -c5 file1 file2
-  node ./head.js -c 5 file1 file2
-*/
+const {
+       getLinesFromHead,
+       read
+      } = require('./src/head_lib.js');
+const reader = require('fs').readFileSync;
+const {newFile} = require('./src/file.js');
 
+const main = function(){
+  let filePath = process.argv[2];
+  let file = newFile();
+  file.name = filePath;
+  file.contents = read(reader, filePath, "utf-8");
+  let headContents = getLinesFromHead(file).join("\n");
+  console.log(headContents);
+}
 
-
+main();
