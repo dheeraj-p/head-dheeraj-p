@@ -11,5 +11,5 @@ const getCharsFromHead = function(file, numberOfCharacters){
   return characters.slice(0, numberOfCharacters);
 }
 
-exports.getLinesFromHead = getLinesFromHead
-exports.getCharsFromHead = getCharsFromHead
+exports.getLinesFromHead = getLinesFromHead;
+exports.getCharsFromHead = getCharsFromHead;
