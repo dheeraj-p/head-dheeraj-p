@@ -6,8 +6,7 @@ const getLinesFromHead = function(file, numberOfLines = 10){
 }
 
 const getCharsFromHead = function(file, numberOfCharacters){
-  let characters = file.contents.split('');
-  return characters.slice(0, numberOfCharacters);
+  return file.contents.substr(0, numberOfCharacters);
 }
 
 const read = function(reader, filepath, encoding){

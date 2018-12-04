@@ -63,23 +63,22 @@ describe("getLinesFromHead",function(){
 })
 
 describe("getCharsFromHead", function(){
-  it("Should return no characters when any number of characters of a empty file",function(){
+  it("Should return empty string when an empty file is given",function(){
     let file = newFile();
-    assert.deepEqual(getCharsFromHead(file, 4), []); 
+    assert.deepEqual(getCharsFromHead(file, 4), ''); 
   });
 
   it("Should return first N characters of one liner file",function(){
     let file = newFile();
     file.contents = "This is one liner file";
-    assert.deepEqual(getCharsFromHead(file, 4), ['T','h','i','s']); 
+    assert.deepEqual(getCharsFromHead(file, 4), 'This'); 
   });
 
   it("Should return first N characters of a multi liner file including \\n",function(){
     let file = newFile();
     file.contents = "This is file \n contains multiple lines\n" +
                     "so that I can test my function.";
-    let expectedOutput = ['T','h','i','s',' ','i','s',' ','f','i','l','e',' ','\n'];
-    assert.deepEqual(getCharsFromHead(file, 14), expectedOutput); 
+    assert.deepEqual(getCharsFromHead(file, 14), 'This is file \n'); 
   });
 });
 
