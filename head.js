@@ -7,9 +7,8 @@ const {newFile} = require('./src/file.js');
 
 const main = function(){
   let filePath = process.argv[2];
-  let file = newFile();
-  file.name = filePath;
-  file.contents = read(reader, filePath, "utf-8");
+  let fileContents = read(reader, filePath, "utf-8");
+  let file = newFile(filePath, fileContents);
   let headContents = getLinesFromHead(file);
   console.log(headContents);
 }
