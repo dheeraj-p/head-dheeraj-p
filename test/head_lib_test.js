@@ -119,9 +119,9 @@ describe("head", function(){
     let file3 = newFile('testFile3', "I think this is the last file");
     let input = {option: '-c', files : [file1, file2, file3], optionValue: 4}; 
     let expectedOutput = "==> testFile1 <==\n" +
-                         "this\n\n" +
+                         "this\n" +
                          "==> testFile2 <==\n" +
-                         "And \n\n" +
+                         "And \n" +
                          "==> testFile3 <==\n" +
                          "I th";
     assert.deepEqual(head(input), expectedOutput);
