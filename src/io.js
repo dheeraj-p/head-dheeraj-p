@@ -3,17 +3,20 @@ const parseInputs = function(inputs){
   let optionValue = '10';
   let fileNames = [...inputs];
 
-  let optionMatched = inputs[0].match(/^-(n|c)/);
-  if(optionMatched != null){
-    option = optionMatched[0];
+  if(inputs[0].startsWith('-')){
+    let partOption = inputs[0].substr(1,1); 
+    option = inputs[0].substr(0,2);
     optionValue = inputs[0].substr(2);
     fileNames = inputs.slice(1);
+    if(isFinite(partOption)){
+      optionValue = partOption;
+      option = "-n";
+    }
     if(optionValue == ''){
       optionValue = inputs[1];
       fileNames = inputs.slice(2);
     }
   }
-
   let parsedInputs = {option, optionValue, fileNames};
   return parsedInputs;
 }
