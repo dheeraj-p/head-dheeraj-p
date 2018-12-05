@@ -13,6 +13,10 @@ const read = function(reader, filepath, encoding){
   return reader(filepath, encoding);
 }
 
+const createHeading = function(text){
+  return "==> " + text + " <==";
+}
+
 const head = function({option, files, optionValue}){
   let operations = {'-n' : getLinesFromHead, '-c': getCharsFromHead};
   let headOperation = operations[option];
@@ -21,7 +25,7 @@ const head = function({option, files, optionValue}){
     return headOperation(files[0], optionValue);
   }
   let headedContents = files.map(file => {
-    let header = "==> " + file.name + " <==";
+    let header = createHeading(file.name);
     let headedFileContents = headOperation(file, optionValue);
     return header + "\n" + headedFileContents;
   });
@@ -32,3 +36,4 @@ exports.getLinesFromHead = getLinesFromHead;
 exports.getCharsFromHead = getCharsFromHead;
 exports.read = read;
 exports.head = head;
+exports.createHeading = createHeading;

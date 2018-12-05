@@ -2,7 +2,8 @@ const assert = require('assert');
 const {getLinesFromHead,
        getCharsFromHead,
        read,
-       head} = require('../src/head_lib.js');
+       head,
+       createHeading} = require('../src/head_lib.js');
 const {newFile} = require('../src/file.js');
 
 describe("getLinesFromHead",function(){
@@ -179,5 +180,11 @@ describe("head", function(){
                          "this is third line 3";
 
     assert.deepEqual(head(input), expectedOutput);
+  });
+});
+
+describe("createHeading", function(){
+  it("Should surround given text with '==> ' and ' <==' ",function(){
+    assert.equal(createHeading("sampleFile.txt"), "==> sampleFile.txt <=="); 
   });
 });
