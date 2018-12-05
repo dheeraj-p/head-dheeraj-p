@@ -16,6 +16,7 @@ const read = function(reader, filepath, encoding){
 const head = function({option, files, optionValue}){
   let operations = {'-n' : getLinesFromHead, '-c': getCharsFromHead};
   let headOperation = operations[option];
+  let contentJoiners = {'-n': "\n\n", '-c': '\n'};
   if(files.length == 1){
     return headOperation(files[0], optionValue);
   }
@@ -24,7 +25,7 @@ const head = function({option, files, optionValue}){
     let headedFileContents = headOperation(file, optionValue);
     return header + "\n" + headedFileContents;
   });
-  return headedContents.join("\n\n");
+  return headedContents.join(contentJoiners[option]);
 }
 
 exports.getLinesFromHead = getLinesFromHead;
