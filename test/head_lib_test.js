@@ -209,4 +209,14 @@ describe("runHead", function(){
                          "He";
     assert.equal(runHead(inputs, readHelloWorld), expectedOutput); 
   });
+
+  it("should throw illegal line count error for invalid options", function(){
+    let inputs = ['-0', 'helloWorldfile1', 'helloWorldfile2'];
+    assert.equal(runHead(inputs, readHelloWorld), "head: illegal line count -- 0"); 
+  });
+
+  it("should throw illegal byte count error for invalid options", function(){
+    let inputs = ['-c0', 'helloWorldfile1', 'helloWorldfile2'];
+    assert.equal(runHead(inputs, readHelloWorld), "head: illegal byte count -- 0"); 
+  });
 });

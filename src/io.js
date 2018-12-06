@@ -21,12 +21,16 @@ const parseInputs = function(inputs){
   return parsedInputs;
 }
 
-const validateOptionValue = function(optionValue){
-  if(optionValue < 1 || !isFinite(optionValue)){
-    return {isValid : false, error: `head: illegal line count -- ${optionValue}`};
+const validateOptions = function(inputs){
+  let optionDescripitions = {'-c': "byte", "-n": "line"};
+  let isValid = true, error = "";
+  if(inputs.optionValue < 1 || !isFinite(inputs.optionValue)){
+    let optionDescription = optionDescripitions[inputs.option];
+    isValid = false;
+    error = `head: illegal ${optionDescription} count -- ${inputs.optionValue}`;
   }
-  return {isValid : true, error: ""};
+  return {isValid, error};
 }
 
 exports.parseInputs = parseInputs;
-exports.validateOptionValue = validateOptionValue;
+exports.validateOptions = validateOptions;
