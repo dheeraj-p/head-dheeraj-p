@@ -9,7 +9,7 @@ const {newFile} = require('../src/file.js');
 
 describe("getLinesFromHead",function(){
   it("should return no lines when any number of lines are required of an empty file", function(){
-    let file = newFile('testFile', '');
+    let file = newFile('testFile', '', true);
     assert.deepEqual(getLinesFromHead(file, 1), ''); 
   });
 
@@ -26,7 +26,7 @@ describe("getLinesFromHead",function(){
                     "This is line 10\n" +
                     "This is line 11";
 
-    let file = newFile('testFile', fileContents);
+    let file = newFile('testFile', fileContents, true);
 
     let expectedOutput = "This is line 1\n" +
                          "This is line 2\n" +
@@ -55,7 +55,7 @@ describe("getLinesFromHead",function(){
                     "This is line 10\n" +
                     "This is line 11";
 
-    let file = newFile('testFile', fileContents);
+    let file = newFile('testFile', fileContents, true);
 
     let expectedOutput = "This is line 1\n" +
                          "This is line 2\n" +
@@ -69,19 +69,19 @@ describe("getLinesFromHead",function(){
 
 describe("getCharsFromHead", function(){
   it("Should return empty string when an empty file is given",function(){
-    let file = newFile('testFile', '');
+    let file = newFile('testFile', '', true);
     assert.deepEqual(getCharsFromHead(file, 4), ''); 
   });
 
   it("Should return first N characters of one liner file",function(){
-    let file = newFile('testFile', 'This is one liner file');
+    let file = newFile('testFile', 'This is one liner file', true);
     assert.deepEqual(getCharsFromHead(file, 4), 'This'); 
   });
 
   it("Should return first N characters of a multi liner file including \\n",function(){
     let fileContents = "This is file \n contains multiple lines\n" +
                     "so that I can test my function.";
-    let file = newFile('testFile', fileContents);
+    let file = newFile('testFile', fileContents, true);
     assert.deepEqual(getCharsFromHead(file, 14), 'This is file \n'); 
   });
 });
@@ -109,16 +109,16 @@ describe("read", function(){
 
 describe("head", function(){
   it("should return headed content when only one file is provided for -c option", function(){
-    let file = newFile('testFile', "this is test file contents");
+    let file = newFile('testFile', "this is test file contents", true);
     let input = {option: '-c', files : [file], optionValue: 4}; 
     let expectedOutput = "this";
     assert.deepEqual(head(input), expectedOutput);
   });
 
   it("should return headed content when multiple files are provided for -c option", function(){
-    let file1 = newFile('testFile1', "this is test file1 contents");
-    let file2 = newFile('testFile2', "And this is test file2 contents");
-    let file3 = newFile('testFile3', "I think this is the last file");
+    let file1 = newFile('testFile1', "this is test file1 contents", true);
+    let file2 = newFile('testFile2', "And this is test file2 contents", true);
+    let file3 = newFile('testFile3', "I think this is the last file", true);
     let input = {option: '-c', files : [file1, file2, file3], optionValue: 4}; 
     let expectedOutput = "==> testFile1 <==\n" +
                          "this\n" +
@@ -135,7 +135,7 @@ describe("head", function(){
                        "this is third line\n" +
                        "I think this is fourth line\n" +
                        "And this seems to be last";
-    let file = newFile('testFile', fileContents);
+    let file = newFile('testFile', fileContents, true);
     let input = {option: '-n', files : [file], optionValue: 3}; 
     let expectedOutput = "This is first line of file\n" +
                          "and this seems to be second line\n" +
@@ -162,9 +162,9 @@ describe("head", function(){
                        "I think this is fourth line 3\n" +
                        "And this seems to be last 3";
 
-    let file1 = newFile('testFile1', file1Contents);
-    let file2 = newFile('testFile2', file2Contents);
-    let file3 = newFile('testFile3', file3Contents);
+    let file1 = newFile('testFile1', file1Contents, true);
+    let file2 = newFile('testFile2', file2Contents, true);
+    let file3 = newFile('testFile3', file3Contents, true);
 
     let input = {option: '-n', files : [file1, file2, file3], optionValue: 3}; 
     let expectedOutput = "==> testFile1 <==\n" +
@@ -190,33 +190,53 @@ describe("createHeading", function(){
   });
 });
 
+const doesFileExists = function(fileName){
+  if(fileName.startsWith('existing')){
+    return true;
+  }
+  return false;
+}
+
 describe("runHead", function(){
   it("should head characters of a single hello world file", function(){
-    let inputs = ['-c', '2', 'helloWorldTest'];
-    assert.equal(runHead(inputs, readHelloWorld), "He"); 
+    let inputs = ['-c', '2', 'existing_helloWorldTest'];
+    assert.equal(runHead(inputs, readHelloWorld, doesFileExists), "He"); 
   });
 
   it("should head lines of a single hello world file", function(){
-    let inputs = ['-n', '2', 'helloWorldTest'];
-    assert.equal(runHead(inputs, readHelloWorld), "Hello World"); 
+    let inputs = ['-n', '2', 'existing_helloWorldTest'];
+    assert.equal(runHead(inputs, readHelloWorld, doesFileExists), "Hello World"); 
   });
 
   it("should head characters of a multiple hello world files", function(){
-    let inputs = ['-c', '2', 'helloWorldfile1', 'helloWorldfile2'];
-    let expectedOutput = "==> helloWorldfile1 <==\n"+
+    let inputs = ['-c', '2', 'existing_helloWorldfile1', 'existing_helloWorldfile2'];
+    let expectedOutput = "==> existing_helloWorldfile1 <==\n"+
                          "He\n"+
-                         "==> helloWorldfile2 <==\n"+
+                         "==> existing_helloWorldfile2 <==\n"+
                          "He";
-    assert.equal(runHead(inputs, readHelloWorld), expectedOutput); 
+    assert.equal(runHead(inputs, readHelloWorld, doesFileExists), expectedOutput); 
   });
 
   it("should throw illegal line count error for invalid options", function(){
     let inputs = ['-0', 'helloWorldfile1', 'helloWorldfile2'];
-    assert.equal(runHead(inputs, readHelloWorld), "head: illegal line count -- 0"); 
+    assert.equal(runHead(inputs, readHelloWorld, doesFileExists), "head: illegal line count -- 0"); 
   });
 
   it("should throw illegal byte count error for invalid options", function(){
     let inputs = ['-c0', 'helloWorldfile1', 'helloWorldfile2'];
-    assert.equal(runHead(inputs, readHelloWorld), "head: illegal byte count -- 0"); 
+    assert.equal(runHead(inputs, readHelloWorld, doesFileExists), "head: illegal byte count -- 0"); 
+  });
+
+  it("should provide an error for a single missing file", function(){
+    let inputs = ['-c3', 'helloWorldfile1'];
+    assert.equal(runHead(inputs, readHelloWorld, doesFileExists), "head: helloWorldfile1: No such file or directory"); 
+  });
+
+  it("should provide the error message for a missing file but list other files that are present", function(){
+    let inputs = ['-c3', 'helloWorldfile1', 'existing_helloWorldFile'];
+    let expectedOutput = "head: helloWorldfile1: No such file or directory\n"+
+                          "==> existing_helloWorldFile <==\n"+
+                          "Hel";
+    assert.equal(runHead(inputs, readHelloWorld, doesFileExists), expectedOutput); 
   });
 });

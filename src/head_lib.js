@@ -23,10 +23,13 @@ const head = function({option, files, optionValue}){
   let operations = {'-n' : getLinesFromHead, '-c': getCharsFromHead};
   let headOperation = operations[option];
   let contentJoiners = {'-n': "\n\n", '-c': '\n'};
-  if(files.length == 1){
-    return headOperation(files[0], optionValue);
-  }
   let headedContents = files.map(file => {
+    if(!file.doesExists){
+      return `head: ${file.name}: No such file or directory`;
+    }
+    if(files.length == 1){
+      return headOperation(files[0], optionValue);
+    }
     let header = createHeading(file.name);
     let headedFileContents = headOperation(file, optionValue);
     return header + "\n" + headedFileContents;
@@ -34,7 +37,7 @@ const head = function({option, files, optionValue}){
   return headedContents.join(contentJoiners[option]);
 }
 
-const runHead = function(inputs, reader){
+const runHead = function(inputs, reader, doesFileExists){
   let headContents;
   let userInputs = parseInputs(inputs);
   let optionValueValidation = validateInputs(userInputs);
@@ -44,7 +47,13 @@ const runHead = function(inputs, reader){
   }
 
   let fileNames = userInputs.fileNames;
-  let files = fileNames.map(fileName => newFile(fileName, read(reader, fileName, "utf-8")));
+  let files = fileNames.map(fileName => {
+    if(doesFileExists(fileName)){
+      return newFile(fileName,read(reader, fileName, "utf-8"),true);
+    }
+    return newFile(fileName, '', false);
+  });
+
   let headData = {option: userInputs.option, optionValue: userInputs.optionValue, files};
   headContents = head(headData);
   return headContents;
