@@ -1,7 +1,8 @@
 const assert = require('assert');
 const {parseInputs,
        validateOptions,
-       isOptionValid} = require('../src/io.js');
+       isOptionValid,
+       validateOptionValue} = require('../src/io.js');
 
 describe("parseInputs", function(){
   it("should return inputs in form of object containing all the file names in default case", function(){
@@ -64,5 +65,31 @@ describe("isOptionValid", function(){
 
   it("Should return false if the option is not valid", function(){
     assert.equal(isOptionValid("-d"), false); 
+  });
+});
+
+describe("validateOptionValue", function(){
+  it("Should return an error if the given option value is less than 1 for '-n'", function(){
+    let input = {option: '-n', optionValue: '0', fileNames: ['file']};
+    let expectedOutput = {isValid: false, error: "head: illegal line count -- 0"};
+    assert.deepEqual(validateOptions(input), expectedOutput); 
+  });
+
+  it("Should return an error if the given option value is not a number for '-n'", function(){
+    let input = {option: '-n', optionValue: 'asdf', fileNames: ['file']};
+    let expectedOutput = {isValid: false, error: "head: illegal line count -- asdf"};
+    assert.deepEqual(validateOptions(input), expectedOutput); 
+  });
+
+  it("Should return an error if the given option value is less than 1 for '-c'", function(){
+    let input = {option: '-c', optionValue: '0', fileNames: ['file']};
+    let expectedOutput = {isValid: false, error: "head: illegal byte count -- 0"};
+    assert.deepEqual(validateOptions(input), expectedOutput); 
+  });
+
+  it("Should return an error if the given option value is not a number for '-c'", function(){
+    let input = {option: '-c', optionValue: 'asdf', fileNames: ['file']};
+    let expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
+    assert.deepEqual(validateOptions(input), expectedOutput); 
   });
 });

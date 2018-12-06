@@ -27,22 +27,27 @@ const isOptionValid = function(option){
   return option == "-n" || option == "-c";
 }
 
-const validateOptions = function(inputs){
-  let optionDescripitions = {'-c': "byte", "-n": "line"};
+const validateOptionValue = function(option, optionValue){
   let isValid = true, error = "";
+  let optionDescripitions = {'-c': "byte", "-n": "line"};
+  if(optionValue < 1 || !isFinite(optionValue)){
+    let optionDescription = optionDescripitions[option];
+    isValid = false;
+    error = `head: illegal ${optionDescription} count -- ${optionValue}`;
+  }
+  return {isValid, error};
+}
+
+const validateOptions = function(inputs){
   if(!isOptionValid(inputs.option)){
-    error = "head: illegal option -- " + inputs.option.substr(1);
+    let error = "head: illegal option -- " + inputs.option.substr(1);
     error = error + "\n" + HEAD_USAGE;
     return {isValid: false, error};
   }
-  if(inputs.optionValue < 1 || !isFinite(inputs.optionValue)){
-    let optionDescription = optionDescripitions[inputs.option];
-    isValid = false;
-    error = `head: illegal ${optionDescription} count -- ${inputs.optionValue}`;
-  }
-  return {isValid, error};
+  return validateOptionValue(inputs.option, inputs.optionValue);
 }
 
 exports.parseInputs = parseInputs;
 exports.validateOptions = validateOptions;
 exports.isOptionValid = isOptionValid;
+exports.validateOptionValue = validateOptionValue;
