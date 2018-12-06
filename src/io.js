@@ -1,3 +1,5 @@
+const HEAD_USAGE = "usage: head [-n lines | -c bytes] [file ...]";
+
 const parseInputs = function(inputs){
   let option = '-n';
   let optionValue = '10';
@@ -28,6 +30,11 @@ const isOptionValid = function(option){
 const validateOptions = function(inputs){
   let optionDescripitions = {'-c': "byte", "-n": "line"};
   let isValid = true, error = "";
+  if(!isOptionValid(inputs.option)){
+    error = "head: illegal option -- " + inputs.option.substr(1);
+    error = error + "\n" + HEAD_USAGE;
+    return {isValid: false, error};
+  }
   if(inputs.optionValue < 1 || !isFinite(inputs.optionValue)){
     let optionDescription = optionDescripitions[inputs.option];
     isValid = false;

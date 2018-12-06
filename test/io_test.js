@@ -49,6 +49,12 @@ describe("validateOptions",function(){
     let expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
     assert.deepEqual(validateOptions(input), expectedOutput); 
   });
+
+  it("Should return an illegal option error if the given option is not valid", function(){
+    let input = {option: '-d', optionValue: 'asdf', fileNames: ['file']};
+    let expectedOutput = {isValid: false, error: "head: illegal option -- d\nusage: head [-n lines | -c bytes] [file ...]"};
+    assert.deepEqual(validateOptions(input), expectedOutput); 
+  });
 });
 
 describe("isOptionValid", function(){
