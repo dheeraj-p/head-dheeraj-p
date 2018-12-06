@@ -9,7 +9,7 @@ const parseInputs = function(inputs){
     optionValue = inputs[0].substr(2);
     fileNames = inputs.slice(1);
     if(isFinite(partOption)){
-      optionValue = partOption;
+      optionValue = inputs[0].substr(1);
       option = "-n";
     }
     if(optionValue == ''){
