@@ -1,5 +1,6 @@
 const {newFile} = require('./file.js');
-const {parseInputs} = require('./io.js');
+const {parseInputs,
+       validateOptionValue} = require('./io.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10){
   let lines = file.getLines();
@@ -34,11 +35,18 @@ const head = function({option, files, optionValue}){
 }
 
 const runHead = function(inputs, reader){
+  let headContents;
   let userInputs = parseInputs(inputs);
+  let optionValueValidation = validateOptionValue(userInputs.optionValue);
+
+  if(!optionValueValidation.isValid){
+    return optionValueValidation.error; 
+  }
+
   let fileNames = userInputs.fileNames;
   let files = fileNames.map(fileName => newFile(fileName, read(reader, fileName, "utf-8")));
   let headData = {option: userInputs.option, optionValue: userInputs.optionValue, files};
-  let headContents = head(headData);
+  headContents = head(headData);
   return headContents;
 }
 
