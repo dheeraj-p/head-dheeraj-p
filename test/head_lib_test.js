@@ -3,7 +3,8 @@ const {getLinesFromHead,
        getCharsFromHead,
        read,
        head,
-       createHeading} = require('../src/head_lib.js');
+       createHeading,
+       runHead} = require('../src/head_lib.js');
 const {newFile} = require('../src/file.js');
 
 describe("getLinesFromHead",function(){
@@ -186,5 +187,26 @@ describe("head", function(){
 describe("createHeading", function(){
   it("Should surround given text with '==> ' and ' <==' ",function(){
     assert.equal(createHeading("sampleFile.txt"), "==> sampleFile.txt <=="); 
+  });
+});
+
+describe("runHead", function(){
+  it("should head characters of a single hello world file", function(){
+    let inputs = ['-c', '2', 'helloWorldTest'];
+    assert.equal(runHead(inputs, readHelloWorld), "He"); 
+  });
+
+  it("should head lines of a single hello world file", function(){
+    let inputs = ['-n', '2', 'helloWorldTest'];
+    assert.equal(runHead(inputs, readHelloWorld), "Hello World"); 
+  });
+
+  it("should head characters of a multiple hello world files", function(){
+    let inputs = ['-c', '2', 'helloWorldfile1', 'helloWorldfile2'];
+    let expectedOutput = "==> helloWorldfile1 <==\n"+
+                         "He\n"+
+                         "==> helloWorldfile2 <==\n"+
+                         "He";
+    assert.equal(runHead(inputs, readHelloWorld), expectedOutput); 
   });
 });
