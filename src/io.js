@@ -21,4 +21,12 @@ const parseInputs = function(inputs){
   return parsedInputs;
 }
 
+const validateOptionValue = function(optionValue){
+  if(optionValue < 1 || !isFinite(optionValue)){
+    return {isValid : false, error: `head: illegal line count -- ${optionValue}`};
+  }
+  return {isValid : true, error: ""};
+}
+
 exports.parseInputs = parseInputs;
+exports.validateOptionValue = validateOptionValue;
