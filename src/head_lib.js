@@ -1,6 +1,6 @@
 const {newFile} = require('./file.js');
 const {parseInputs,
-       validateOptions} = require('./io.js');
+       validateInputs} = require('./io.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10){
   let lines = file.getLines();
@@ -37,7 +37,7 @@ const head = function({option, files, optionValue}){
 const runHead = function(inputs, reader){
   let headContents;
   let userInputs = parseInputs(inputs);
-  let optionValueValidation = validateOptions(userInputs);
+  let optionValueValidation = validateInputs(userInputs);
 
   if(!optionValueValidation.isValid){
     return optionValueValidation.error; 

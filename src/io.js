@@ -38,7 +38,7 @@ const validateOptionValue = function(option, optionValue){
   return {isValid, error};
 }
 
-const validateOptions = function(inputs){
+const validateInputs = function(inputs){
   if(!isOptionValid(inputs.option)){
     let error = "head: illegal option -- " + inputs.option.substr(1);
     error = error + "\n" + HEAD_USAGE;
@@ -48,6 +48,6 @@ const validateOptions = function(inputs){
 }
 
 exports.parseInputs = parseInputs;
-exports.validateOptions = validateOptions;
+exports.validateInputs = validateInputs;
 exports.isOptionValid = isOptionValid;
 exports.validateOptionValue = validateOptionValue;
