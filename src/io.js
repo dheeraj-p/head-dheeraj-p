@@ -21,6 +21,10 @@ const parseInputs = function(inputs){
   return parsedInputs;
 }
 
+const isOptionValid = function(option){
+  return option == "-n" || option == "-c";
+}
+
 const validateOptions = function(inputs){
   let optionDescripitions = {'-c': "byte", "-n": "line"};
   let isValid = true, error = "";
@@ -34,3 +38,4 @@ const validateOptions = function(inputs){
 
 exports.parseInputs = parseInputs;
 exports.validateOptions = validateOptions;
+exports.isOptionValid = isOptionValid;
