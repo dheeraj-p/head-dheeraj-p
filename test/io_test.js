@@ -2,7 +2,8 @@ const assert = require('assert');
 const {parseInputs,
        validateInputs,
        isOptionValid,
-       validateOptionValue} = require('../src/io.js');
+       validateOptionValue,
+       isOptionSpecified} = require('../src/io.js');
 
 describe("parseInputs", function(){
   it("should return inputs in form of object containing all the file names in default case", function(){
@@ -92,4 +93,14 @@ describe("validateOptionValue", function(){
     let expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
     assert.deepEqual(validateInputs(input), expectedOutput); 
   });
+});
+
+describe("isOptionSpecified", function(){
+  it("should return true if given option candidate is an option", function(){
+    assert.equal(isOptionSpecified("-n"), true);
+  }); 
+
+  it("should return false if given option candidate is not an option", function(){
+    assert.equal(isOptionSpecified("-n"), true);
+  }); 
 });

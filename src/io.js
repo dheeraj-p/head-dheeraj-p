@@ -1,11 +1,13 @@
 const HEAD_USAGE = "usage: head [-n lines | -c bytes] [file ...]";
 
-const parseInputs = function(inputs){
+const isOptionSpecified = optionCandidate => optionCandidate.startsWith('-');
+
+const parseInputs = function(inputs){ 
   let option = '-n';
   let optionValue = '10';
   let fileNames = [...inputs];
 
-  if(inputs[0].startsWith('-')){
+  if(isOptionSpecified(inputs[0])){
     let partOption = inputs[0].substr(1,1); 
     option = inputs[0].substr(0,2);
     optionValue = inputs[0].substr(2);
@@ -52,3 +54,4 @@ exports.parseInputs = parseInputs;
 exports.validateInputs = validateInputs;
 exports.isOptionValid = isOptionValid;
 exports.validateOptionValue = validateOptionValue;
+exports.isOptionSpecified = isOptionSpecified;
