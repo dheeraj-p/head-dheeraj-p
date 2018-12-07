@@ -19,6 +19,7 @@ const parseInputs = function(inputs){
       fileNames = inputs.slice(2);
     }
   }
+
   let parsedInputs = {option, optionValue, fileNames};
   return parsedInputs;
 }
