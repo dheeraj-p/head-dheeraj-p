@@ -25,11 +25,7 @@ const getNormalOptionInputs = inputs => {
 }
 
 const getDefaultInputs = inputs => {
-  return { 
-    option: '-n',
-    optionValue: 10,
-    fileNames: [...inputs]
-  };
+  return newParsedInputs('-n', 10, [...inputs]);
 }
 
 const parseInputs = function(inputs){ 
