@@ -8,28 +8,20 @@ const isNumberOption = option => isFinite(option.substr(1,1));
 
 const isOptionWithValue = option => option.length > 2;
 
+const newParsedInputs = function(option, optionValue, fileNames) {
+ return {option, optionValue, fileNames}; 
+}
+
 const getNumberOptionInputs = inputs => {
-  return { 
-    option: '-n',
-    optionValue: inputs[0].slice(1),
-    fileNames: inputs.slice(1)
-  };
+  return newParsedInputs('-n', inputs[0].substr(1), inputs.slice(1));
 }
 
 const getOptionWithValueInputs = inputs => {
-  return { 
-    option: inputs[0].slice(0,2),
-    optionValue: inputs[0].slice(2),
-    fileNames: inputs.slice(1)
-  };
+  return newParsedInputs(inputs[0].slice(0,2), inputs[0].substr(2), inputs.slice(1));
 }
 
 const getNormalOptionInputs = inputs => {
-  return { 
-    option: inputs[0],
-    optionValue: inputs[1],
-    fileNames: inputs.slice(2)
-  };
+  return newParsedInputs(inputs[0], inputs[1], inputs.slice(2));
 }
 
 const getDefaultInputs = inputs => {
@@ -92,3 +84,4 @@ exports.getNormalOptionInputs = getNormalOptionInputs;
 exports.getNumberOptionInputs = getNumberOptionInputs;
 exports.getOptionWithValueInputs = getOptionWithValueInputs;
 exports.getDefaultInputs = getDefaultInputs;
+exports.newParsedInputs = newParsedInputs;

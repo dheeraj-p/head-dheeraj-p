@@ -3,7 +3,8 @@ const {parseInputs,
        validateInputs,
        isOptionValid,
        validateOptionValue,
-       isOptionSpecified} = require('../src/io.js');
+       isOptionSpecified,
+       newParsedInputs} = require('../src/io.js');
 
 describe("parseInputs", function(){
   it("should return inputs in form of object containing all the file names in default case", function(){
@@ -102,5 +103,12 @@ describe("isOptionSpecified", function(){
 
   it("should return false if given option candidate is not an option", function(){
     assert.equal(isOptionSpecified("-n"), true);
+  }); 
+});
+
+describe("isOptionSpecified", function(){
+  it("should return encapsulated inputs for given option, optionValue and fileNames", function(){
+    const expectedOutput = {option: '-n', optionValue: 10, fileNames: ['file1', 'file2']};
+    assert.deepEqual(newParsedInputs("-n", 10, ['file1', 'file2']), expectedOutput);
   }); 
 });
