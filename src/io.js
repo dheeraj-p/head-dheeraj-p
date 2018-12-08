@@ -1,29 +1,60 @@
 const HEAD_USAGE = "usage: head [-n lines | -c bytes] [file ...]";
 
-const isOptionSpecified = optionCandidate => optionCandidate.startsWith('-');
+const isOptionSpecified = optionCandidate => {
+  return optionCandidate.startsWith('-') && optionCandidate.length > 1;
+}
+
+const isNumberOption = option => isFinite(option.substr(1,1));
+
+const isOptionWithValue = option => option.length > 2;
+
+const getNumberOptionInputs = inputs => {
+  return { 
+    option: '-n',
+    optionValue: inputs[0].slice(1),
+    fileNames: inputs.slice(1)
+  };
+}
+
+const getOptionWithValueInputs = inputs => {
+  return { 
+    option: inputs[0].slice(0,2),
+    optionValue: inputs[0].slice(2),
+    fileNames: inputs.slice(1)
+  };
+}
+
+const getNormalOptionInputs = inputs => {
+  return { 
+    option: inputs[0],
+    optionValue: inputs[1],
+    fileNames: inputs.slice(2)
+  };
+}
+
+const getDefaultInputs = inputs => {
+  return { 
+    option: '-n',
+    optionValue: 10,
+    fileNames: [...inputs]
+  };
+}
 
 const parseInputs = function(inputs){ 
-  let option = '-n';
-  let optionValue = '10';
-  let fileNames = [...inputs];
-
-  if(isOptionSpecified(inputs[0])){
-    let partOption = inputs[0].substr(1,1); 
-    option = inputs[0].substr(0,2);
-    optionValue = inputs[0].substr(2);
-    fileNames = inputs.slice(1);
-    if(isFinite(partOption)){
-      optionValue = inputs[0].substr(1);
-      option = "-n";
-    }
-    if(optionValue == ''){
-      optionValue = inputs[1];
-      fileNames = inputs.slice(2);
-    }
+  const option = inputs[0];
+  if(!isOptionSpecified(option)){
+    return getDefaultInputs(inputs);
   }
 
-  let parsedInputs = {option, optionValue, fileNames};
-  return parsedInputs;
+  if(isNumberOption(option)){
+    return getNumberOptionInputs(inputs);
+  }
+
+  if(isOptionWithValue(option)){
+    return getOptionWithValueInputs(inputs);
+  }
+
+  return getNormalOptionInputs(inputs);
 }
 
 const isOptionValid = function(option){
@@ -55,3 +86,9 @@ exports.validateInputs = validateInputs;
 exports.isOptionValid = isOptionValid;
 exports.validateOptionValue = validateOptionValue;
 exports.isOptionSpecified = isOptionSpecified;
+exports.isNumberOption = isNumberOption;
+exports.isOptionWithValue = isOptionWithValue;
+exports.getNormalOptionInputs = getNormalOptionInputs;
+exports.getNumberOptionInputs = getNumberOptionInputs;
+exports.getOptionWithValueInputs = getOptionWithValueInputs;
+exports.getDefaultInputs = getDefaultInputs;
