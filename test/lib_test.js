@@ -4,7 +4,7 @@ const {getLinesFromHead,
        read,
        head,
        createHeading,
-       runHead} = require('../src/head_lib.js');
+       runHead} = require('../src/lib.js');
 const {newFile} = require('../src/file.js');
 
 describe("getLinesFromHead",function(){
