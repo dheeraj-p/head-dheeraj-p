@@ -12,7 +12,12 @@ const getCharsFromHead = function(file, numberOfCharacters) {
 
 const getLinesFromTail = function(file, numberOfLines = 10) {
   let lines = file.getLines();
-  return lines.slice(-numberOfLines).join("\n");
+  const isFileEndingWithNewLine = lines[lines.length - 1] == '';
+  if(isFileEndingWithNewLine){
+    lines.pop();
+  }
+  let tailedLines  = lines.slice(-numberOfLines);
+  return tailedLines.join("\n");
 };
 
 const getCharsFromTail = function(file, numberOfCharacters) {
