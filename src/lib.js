@@ -55,6 +55,12 @@ const head = function(commandData) {
   return runCommand(commandData, fileNotFoundProvider, headOperations);
 };
 
+const tail = function(commandData) {
+  const headOperations = { "-n": getLinesFromTail, "-c": getCharsFromTail };
+  const fileNotFoundProvider = newFileNotFoundMsg.bind(null, "tail");
+  return runCommand(commandData, fileNotFoundProvider, headOperations);
+};
+
 const createCommandData = function(userInputs, reader, doesFileExists){
   const fileNames = userInputs.fileNames;
   const files = fileNames.map(fileName => {
@@ -93,3 +99,4 @@ exports.getLinesFromTail = getLinesFromTail;
 exports.getCharsFromTail = getCharsFromTail;
 exports.newFileNotFoundMsg = newFileNotFoundMsg;
 exports.createCommandData = createCommandData;
+exports.tail = tail;
