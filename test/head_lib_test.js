@@ -86,24 +86,35 @@ describe("getCharsFromHead", function(){
   });
 });
 
-const readHelloWorld = function(file, encoding) {
-  if(file && encoding) {
-    return "Hello World";
-  }
+const mockReader = function(expectedFile, expectedEncoding, expectedContent) {
+  return function(actualFile, actualencoding) {
+    const isFileValid = function() {
+      return actualFile === expectedFile;
+    };
+
+    const isEncodingValid = function() {
+      return actualencoding === expectedEncoding;
+    };
+
+    const areArgsValid = function() {
+      return isFileValid() && isEncodingValid();
+    };
+
+    if (areArgsValid()) {
+      return expectedContent;
+    }
+  };
 };
 
-const readEmptyFile = function(file, encoding) {
-  if(file && encoding) {
-    return "";
-  }
-}
 describe("read", function(){
   it("should return the content of provided file when file and encoding is valid", function(){
-    assert.deepEqual(read(readHelloWorld, "helloworld.txt", "utf-8"), "Hello World"); 
+    const readHelloWorld = mockReader('../helloworld.txt', 'utf-8', 'Hello World');
+    assert.deepEqual(read(readHelloWorld, "../helloworld.txt", "utf-8"), "Hello World"); 
   });
 
   it("should return empty string when empty file is provided", function(){
-    assert.deepEqual(read(readEmptyFile, "emptyFile.txt", "utf-8"), ""); 
+    const readEmptyFile = mockReader('../emptyFile.txt', 'utf-8', '');
+    assert.deepEqual(read(readEmptyFile, "../emptyFile.txt", "utf-8"), ""); 
   });
 });
 
@@ -198,6 +209,7 @@ const doesFileExists = function(fileName){
 }
 
 describe("runHead", function(){
+  const readHelloWorld = mockReader('existing_helloWorldTest', 'utf-8', 'Hello World');
   it("should head characters of a single hello world file", function(){
     let inputs = ['-c', '2', 'existing_helloWorldTest'];
     assert.equal(runHead(inputs, readHelloWorld, doesFileExists), "He"); 
@@ -209,10 +221,10 @@ describe("runHead", function(){
   });
 
   it("should head characters of a multiple hello world files", function(){
-    let inputs = ['-c', '2', 'existing_helloWorldfile1', 'existing_helloWorldfile2'];
-    let expectedOutput = "==> existing_helloWorldfile1 <==\n"+
+    let inputs = ['-c', '2', 'existing_helloWorldTest', 'existing_helloWorldTest'];
+    let expectedOutput = "==> existing_helloWorldTest <==\n"+
                          "He\n"+
-                         "==> existing_helloWorldfile2 <==\n"+
+                         "==> existing_helloWorldTest <==\n"+
                          "He";
     assert.equal(runHead(inputs, readHelloWorld, doesFileExists), expectedOutput); 
   });
@@ -233,9 +245,9 @@ describe("runHead", function(){
   });
 
   it("should provide the error message for a missing file but list other files that are present", function(){
-    let inputs = ['-c3', 'helloWorldfile1', 'existing_helloWorldFile'];
+    let inputs = ['-c3', 'helloWorldfile1', 'existing_helloWorldTest'];
     let expectedOutput = "head: helloWorldfile1: No such file or directory\n"+
-                          "==> existing_helloWorldFile <==\n"+
+                          "==> existing_helloWorldTest <==\n"+
                           "Hel";
     assert.equal(runHead(inputs, readHelloWorld, doesFileExists), expectedOutput); 
   });
