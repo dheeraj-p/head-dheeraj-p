@@ -7,7 +7,8 @@ const {
   createHeading,
   runHead,
   getLinesFromTail,
-  getCharsFromTail
+  getCharsFromTail,
+  newFileNotFoundMsg
 } = require("../src/lib.js");
 const { newFile } = require("../src/file.js");
 
@@ -386,5 +387,11 @@ describe("getCharsFromTail", function() {
       "so that I can test my function.";
     let file = newFile("testFile", fileContents, true);
     assert.deepEqual(getCharsFromTail(file, 14), "t my function.");
+  });
+});
+
+describe("newFileNotFoundMsg", function(){
+  it("should return a 'file or directory not found' message with command name and filename", function(){
+    assert.equal(newFileNotFoundMsg("head", "sampleFile"), "head: sampleFile: No such file or directory");
   });
 });

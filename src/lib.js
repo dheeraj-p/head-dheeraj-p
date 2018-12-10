@@ -27,13 +27,17 @@ const createHeading = function(text) {
   return "==> " + text + " <==";
 };
 
+const newFileNotFoundMsg = function(commandName, fileName){
+  return `${commandName}: ${fileName}: No such file or directory`;
+}
+
 const head = function({ option, files, optionValue }) {
   let operations = { "-n": getLinesFromHead, "-c": getCharsFromHead };
   let headOperation = operations[option];
   let contentJoiners = { "-n": "\n\n", "-c": "\n" };
   let headedContents = files.map(file => {
     if (!file.doesExists) {
-      return `head: ${file.name}: No such file or directory`;
+      return newFileNotFoundMsg("head", file.name);
     }
     if (files.length == 1) {
       return headOperation(files[0], optionValue);
@@ -79,3 +83,4 @@ exports.createHeading = createHeading;
 exports.runHead = runHead;
 exports.getLinesFromTail = getLinesFromTail;
 exports.getCharsFromTail = getCharsFromTail;
+exports.newFileNotFoundMsg = newFileNotFoundMsg;
