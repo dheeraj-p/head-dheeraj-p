@@ -31,22 +31,28 @@ const newFileNotFoundMsg = function(commandName, fileName){
   return `${commandName}: ${fileName}: No such file or directory`;
 }
 
-const head = function({ option, files, optionValue }) {
-  let operations = { "-n": getLinesFromHead, "-c": getCharsFromHead };
-  let headOperation = operations[option];
+const runCommand = function(commandData, messageProvider, commandOperations){
+  const {option, files, optionValue} = commandData;
+  let commandOperation = commandOperations[option];
   let contentJoiners = { "-n": "\n\n", "-c": "\n" };
-  let headedContents = files.map(file => {
+  let resultedContents = files.map(file => {
     if (!file.doesExists) {
-      return newFileNotFoundMsg("head", file.name);
-    }
+      return messageProvider(file.name);
+    } 
     if (files.length == 1) {
-      return headOperation(files[0], optionValue);
+      return commandOperation(files[0], optionValue);
     }
     let header = createHeading(file.name);
-    let headedFileContents = headOperation(file, optionValue);
-    return header + "\n" + headedFileContents;
+    let resultedFileContents = commandOperation(file, optionValue);
+    return header + "\n" + resultedFileContents;
   });
-  return headedContents.join(contentJoiners[option]);
+  return resultedContents.join(contentJoiners[option]);
+}
+
+const head = function(commandData) {
+  const headOperations = { "-n": getLinesFromHead, "-c": getCharsFromHead };
+  const fileNotFoundProvider = newFileNotFoundMsg.bind(null, "head");
+  return runCommand(commandData, fileNotFoundProvider, headOperations);
 };
 
 const runHead = function(inputs, reader, doesFileExists) {
