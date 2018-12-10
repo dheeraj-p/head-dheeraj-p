@@ -10,6 +10,11 @@ const getCharsFromHead = function(file, numberOfCharacters) {
   return file.contents.substr(0, numberOfCharacters);
 };
 
+const getLinesFromTail = function(file, numberOfLines = 10) {
+  let lines = file.getLines();
+  return lines.slice(-numberOfLines).join("\n");
+};
+
 const read = function(reader, filepath, encoding) {
   return reader(filepath, encoding);
 };
@@ -68,3 +73,4 @@ exports.read = read;
 exports.head = head;
 exports.createHeading = createHeading;
 exports.runHead = runHead;
+exports.getLinesFromTail = getLinesFromTail;
