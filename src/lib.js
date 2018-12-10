@@ -89,6 +89,18 @@ const runHead = function(inputs, reader, doesFileExists) {
   return head(headData);
 };
 
+const runTail = function(inputs, reader, doesFileExists) {
+  let userInputs = parseInputs(inputs);
+  let optionValueValidation = validateInputs(userInputs);
+
+  if (!optionValueValidation.isValid) {
+    return optionValueValidation.error;
+  }
+  userInputs.optionValue = Math.abs(userInputs.optionValue);
+  const tailData = createCommandData(userInputs, reader, doesFileExists);
+  return tail(tailData);
+};
+
 exports.getLinesFromHead = getLinesFromHead;
 exports.getCharsFromHead = getCharsFromHead;
 exports.read = read;
@@ -100,3 +112,4 @@ exports.getCharsFromTail = getCharsFromTail;
 exports.newFileNotFoundMsg = newFileNotFoundMsg;
 exports.createCommandData = createCommandData;
 exports.tail = tail;
+exports.runTail = runTail;

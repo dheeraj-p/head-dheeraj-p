@@ -10,7 +10,8 @@ const {
   getCharsFromTail,
   newFileNotFoundMsg,
   createCommandData,
-  tail
+  tail,
+  runTail
 } = require("../src/lib.js");
 const { newFile } = require("../src/file.js");
 
@@ -497,5 +498,63 @@ describe("tail", function() {
       "And this seems to be last 3";
 
     assert.deepEqual(tail(input), expectedOutput);
+  });
+});
+
+describe("runTail", function() {
+  const readHelloWorld = mockReader(
+    "existing_helloWorldTest",
+    "utf-8",
+    "Hello World"
+  );
+  it("should tail characters of a single hello world file", function() {
+    let inputs = ["-c", "2", "existing_helloWorldTest"];
+    assert.equal(runTail(inputs, readHelloWorld, doesFileExists), "ld");
+  });
+
+  it("should tail lines of a single hello world file", function() {
+    let inputs = ["-n", "2", "existing_helloWorldTest"];
+    assert.equal(
+      runTail(inputs, readHelloWorld, doesFileExists),
+      "Hello World"
+    );
+  });
+
+  it("should tail characters of a multiple hello world files", function() {
+    let inputs = [
+      "-c",
+      "2",
+      "existing_helloWorldTest",
+      "existing_helloWorldTest"
+    ];
+    let expectedOutput =
+      "==> existing_helloWorldTest <==\n" +
+      "ld\n" +
+      "==> existing_helloWorldTest <==\n" +
+      "ld";
+    assert.equal(
+      runTail(inputs, readHelloWorld, doesFileExists),
+      expectedOutput
+    );
+  });
+
+  it("should provide an error for a single missing file", function() {
+    let inputs = ["-c3", "helloWorldfile1"];
+    assert.equal(
+      runTail(inputs, readHelloWorld, doesFileExists),
+      "tail: helloWorldfile1: No such file or directory"
+    );
+  });
+
+  it("should provide the error message for a missing file but list other files that are present", function() {
+    let inputs = ["-c3", "helloWorldfile1", "existing_helloWorldTest"];
+    let expectedOutput =
+      "tail: helloWorldfile1: No such file or directory\n" +
+      "==> existing_helloWorldTest <==\n" +
+      "rld";
+    assert.equal(
+      runTail(inputs, readHelloWorld, doesFileExists),
+      expectedOutput
+    );
   });
 })
