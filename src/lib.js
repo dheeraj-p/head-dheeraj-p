@@ -15,6 +15,10 @@ const getLinesFromTail = function(file, numberOfLines = 10) {
   return lines.slice(-numberOfLines).join("\n");
 };
 
+const getCharsFromTail = function(file, numberOfCharacters) {
+  return file.contents.substr(-numberOfCharacters);
+};
+
 const read = function(reader, filepath, encoding) {
   return reader(filepath, encoding);
 };
@@ -74,3 +78,4 @@ exports.head = head;
 exports.createHeading = createHeading;
 exports.runHead = runHead;
 exports.getLinesFromTail = getLinesFromTail;
+exports.getCharsFromTail = getCharsFromTail;

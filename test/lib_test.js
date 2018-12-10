@@ -6,7 +6,8 @@ const {
   head,
   createHeading,
   runHead,
-  getLinesFromTail
+  getLinesFromTail,
+  getCharsFromTail
 } = require("../src/lib.js");
 const { newFile } = require("../src/file.js");
 
@@ -365,5 +366,25 @@ describe("getLinesFromTail", function() {
       "This is line 11";
 
     assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
+  });
+});
+
+describe("getCharsFromTail", function() {
+  it("Should return empty string when an empty file is given", function() {
+    let file = newFile("testFile", "", true);
+    assert.deepEqual(getCharsFromTail(file, 4), "");
+  });
+
+  it("Should return last N characters of one liner file", function() {
+    let file = newFile("testFile", "This is one liner file", true);
+    assert.deepEqual(getCharsFromTail(file, 4), "file");
+  });
+
+  it("Should return last N characters of a multi liner file", function() {
+    let fileContents =
+      "This is file \n contains multiple lines\n" +
+      "so that I can test my function.";
+    let file = newFile("testFile", fileContents, true);
+    assert.deepEqual(getCharsFromTail(file, 14), "t my function.");
   });
 });
