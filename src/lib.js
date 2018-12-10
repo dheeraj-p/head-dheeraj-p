@@ -55,20 +55,12 @@ const head = function(commandData) {
   return runCommand(commandData, fileNotFoundProvider, headOperations);
 };
 
-const runHead = function(inputs, reader, doesFileExists) {
-  let headContents;
-  let userInputs = parseInputs(inputs);
-  let optionValueValidation = validateInputs(userInputs);
-
-  if (!optionValueValidation.isValid) {
-    return optionValueValidation.error;
-  }
-
-  let fileNames = userInputs.fileNames;
-  let files = fileNames.map(fileName => {
+const createCommandData = function(userInputs, reader, doesFileExists){
+  const fileNames = userInputs.fileNames;
+  const files = fileNames.map(fileName => {
     if (doesFileExists(fileName)) {
       return newFile(fileName, read(reader, fileName, "utf-8"), true);
-    }
+    } 
     return newFile(fileName, "", false);
   });
 
@@ -77,8 +69,18 @@ const runHead = function(inputs, reader, doesFileExists) {
     optionValue: userInputs.optionValue,
     files
   };
-  headContents = head(headData);
-  return headContents;
+  return headData;
+}
+
+const runHead = function(inputs, reader, doesFileExists) {
+  let userInputs = parseInputs(inputs);
+  let optionValueValidation = validateInputs(userInputs);
+
+  if (!optionValueValidation.isValid) {
+    return optionValueValidation.error;
+  }
+  const headData = createCommandData(userInputs, reader, doesFileExists);
+  return head(headData);
 };
 
 exports.getLinesFromHead = getLinesFromHead;
@@ -90,3 +92,4 @@ exports.runHead = runHead;
 exports.getLinesFromTail = getLinesFromTail;
 exports.getCharsFromTail = getCharsFromTail;
 exports.newFileNotFoundMsg = newFileNotFoundMsg;
+exports.createCommandData = createCommandData;
