@@ -100,7 +100,7 @@ const runTail = function(inputs, reader, doesFileExists) {
   if (!validatedOffset.isValid) {
     return validatedOffset.error;
   }
-  if(userInputs.optionValue == 0){
+  if (userInputs.optionValue == 0) {
     return "";
   }
   userInputs.optionValue = Math.abs(userInputs.optionValue);
