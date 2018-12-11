@@ -12,8 +12,7 @@ const getCharsFromHead = function(file, numberOfCharacters) {
 
 const getLinesFromTail = function(file, numberOfLines = 10) {
   let lines = file.getLines();
-  const isFileEndingWithNewLine = lines[lines.length - 1] == "";
-  if (isFileEndingWithNewLine) {
+  if (file.contents.endsWith("\n")) {
     lines.pop();
   }
   let tailedLines = lines.slice(-numberOfLines);
