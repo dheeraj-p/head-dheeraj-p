@@ -2,7 +2,7 @@ const assert = require('assert');
 const {parseInputs,
        validateInputs,
        isOptionValid,
-       validateOptionValue,
+       validateOffset,
        isOptionSpecified,
        newParsedInputs} = require('../src/io.js');
 
@@ -111,4 +111,14 @@ describe("isOptionSpecified", function(){
     const expectedOutput = {option: '-n', optionValue: 10, fileNames: ['file1', 'file2']};
     assert.deepEqual(newParsedInputs("-n", 10, ['file1', 'file2']), expectedOutput);
   }); 
+});
+
+describe('validateOffset', function(){
+  it('should provide error for illegal offset', function(){
+    assert.deepEqual(validateOffset("dfs"), {isValid: false, error: "tail: illegal offset -- dfs"});
+  });
+
+  it('should not provide error for legal offset', function(){
+    assert.deepEqual(validateOffset(3), {isValid: true, error: ""});
+  });
 });

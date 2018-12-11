@@ -557,4 +557,12 @@ describe("runTail", function() {
       expectedOutput
     );
   });
+
+  it("should provide an error for a illegal offset", function() {
+    let inputs = ["-cdsf", "helloWorldfile1"];
+    assert.equal(
+      runTail(inputs, readHelloWorld, doesFileExists),
+      "tail: illegal offset -- dsf"
+    );
+  });
 })

@@ -60,6 +60,15 @@ const validateOptionValue = function(option, optionValue){
   return {isValid, error};
 }
 
+const validateOffset = function(optionValue){
+  let isValid = true, error = "";
+  if(isNaN(optionValue)){
+    error = `tail: illegal offset -- ${optionValue}`;
+    isValid = false;
+  }
+  return {isValid, error};
+} 
+
 const validateInputs = function(inputs){
   if(!isOptionValid(inputs.option)){
     let error = "head: illegal option -- " + inputs.option.substr(1);
@@ -81,3 +90,4 @@ exports.getNumberOptionInputs = getNumberOptionInputs;
 exports.getOptionWithValueInputs = getOptionWithValueInputs;
 exports.getDefaultInputs = getDefaultInputs;
 exports.newParsedInputs = newParsedInputs;
+exports.validateOffset = validateOffset;

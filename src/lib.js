@@ -1,5 +1,5 @@
 const { newFile } = require("./file.js");
-const { parseInputs, validateInputs } = require("./io.js");
+const { parseInputs, validateInputs, validateOffset } = require("./io.js");
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
   let lines = file.getLines();
@@ -12,11 +12,11 @@ const getCharsFromHead = function(file, numberOfCharacters) {
 
 const getLinesFromTail = function(file, numberOfLines = 10) {
   let lines = file.getLines();
-  const isFileEndingWithNewLine = lines[lines.length - 1] == '';
-  if(isFileEndingWithNewLine){
+  const isFileEndingWithNewLine = lines[lines.length - 1] == "";
+  if (isFileEndingWithNewLine) {
     lines.pop();
   }
-  let tailedLines  = lines.slice(-numberOfLines);
+  let tailedLines = lines.slice(-numberOfLines);
   return tailedLines.join("\n");
 };
 
@@ -32,18 +32,18 @@ const createHeading = function(text) {
   return "==> " + text + " <==";
 };
 
-const newFileNotFoundMsg = function(commandName, fileName){
+const newFileNotFoundMsg = function(commandName, fileName) {
   return `${commandName}: ${fileName}: No such file or directory`;
-}
+};
 
-const runCommand = function(commandData, messageProvider, commandOperations){
-  const {option, files, optionValue} = commandData;
+const runCommand = function(commandData, messageProvider, commandOperations) {
+  const { option, files, optionValue } = commandData;
   let commandOperation = commandOperations[option];
   let contentJoiners = { "-n": "\n\n", "-c": "\n" };
   let resultedContents = files.map(file => {
     if (!file.doesExists) {
       return messageProvider(file.name);
-    } 
+    }
     if (files.length == 1) {
       return commandOperation(files[0], optionValue);
     }
@@ -52,7 +52,7 @@ const runCommand = function(commandData, messageProvider, commandOperations){
     return header + "\n" + resultedFileContents;
   });
   return resultedContents.join(contentJoiners[option]);
-}
+};
 
 const head = function(commandData) {
   const headOperations = { "-n": getLinesFromHead, "-c": getCharsFromHead };
@@ -66,12 +66,12 @@ const tail = function(commandData) {
   return runCommand(commandData, fileNotFoundProvider, headOperations);
 };
 
-const createCommandData = function(userInputs, reader, doesFileExists){
+const createCommandData = function(userInputs, reader, doesFileExists) {
   const fileNames = userInputs.fileNames;
   const files = fileNames.map(fileName => {
     if (doesFileExists(fileName)) {
       return newFile(fileName, read(reader, fileName, "utf-8"), true);
-    } 
+    }
     return newFile(fileName, "", false);
   });
 
@@ -81,7 +81,7 @@ const createCommandData = function(userInputs, reader, doesFileExists){
     files
   };
   return headData;
-}
+};
 
 const runHead = function(inputs, reader, doesFileExists) {
   let userInputs = parseInputs(inputs);
@@ -96,6 +96,12 @@ const runHead = function(inputs, reader, doesFileExists) {
 
 const runTail = function(inputs, reader, doesFileExists) {
   let userInputs = parseInputs(inputs);
+
+  const validatedOffset = validateOffset(userInputs.optionValue);
+  if (!validatedOffset.isValid) {
+    return validatedOffset.error;
+  }
+
   userInputs.optionValue = Math.abs(userInputs.optionValue);
   const tailData = createCommandData(userInputs, reader, doesFileExists);
   return tail(tailData);
