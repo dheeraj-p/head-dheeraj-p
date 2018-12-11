@@ -49,12 +49,12 @@ const isOptionValid = function(option){
   return option == "-n" || option == "-c";
 }
 
-const isOptionValueValid = optionValue => optionValue < 1 || !isFinite(optionValue);
+const isOptionValueNotValid = optionValue => optionValue < 1 || !isFinite(optionValue);
 
 const validateOptionValue = function(option, optionValue){
   let isValid = true, error = "";
   let optionDescripitions = {'-c': "byte", "-n": "line"};
-  if(isOptionValueValid(optionValue)){
+  if(isOptionValueNotValid(optionValue)){
     let optionDescription = optionDescripitions[option];
     isValid = false;
     error = `head: illegal ${optionDescription} count -- ${optionValue}`;
