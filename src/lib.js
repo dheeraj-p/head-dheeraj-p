@@ -96,11 +96,6 @@ const runHead = function(inputs, reader, doesFileExists) {
 
 const runTail = function(inputs, reader, doesFileExists) {
   let userInputs = parseInputs(inputs);
-  let optionValueValidation = validateInputs(userInputs);
-
-  if (!optionValueValidation.isValid) {
-    return optionValueValidation.error;
-  }
   userInputs.optionValue = Math.abs(userInputs.optionValue);
   const tailData = createCommandData(userInputs, reader, doesFileExists);
   return tail(tailData);
