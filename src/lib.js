@@ -1,5 +1,5 @@
 const { newFile } = require("./file.js");
-const { parseInputs, validateInputs, validateOffset } = require("./io.js");
+const { parseInputs, validateInputs, validateOffset } = require("./process_input.js");
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
   let lines = file.getLines();

@@ -4,7 +4,7 @@ const {parseInputs,
        isOptionValid,
        validateOffset,
        isOptionSpecified,
-       newParsedInputs} = require('../src/io.js');
+       newParsedInputs} = require('../src/process_input.js');
 
 describe("parseInputs", function(){
   it("should return inputs in form of object containing all the file names in default case", function(){
