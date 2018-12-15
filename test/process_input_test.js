@@ -29,48 +29,6 @@ describe("parseInputs", function(){
   });
 });
 
-describe("validateInputs",function(){
-  it("Should return an error if the given option value is less than 1 for '-n'", function(){
-    let input = {option: '-n', optionValue: '0', fileNames: ['file']};
-    let expectedOutput = {isValid: false, error: "head: illegal line count -- 0"};
-    assert.deepEqual(validateInputs(input), expectedOutput); 
-  });
-
-  it("Should return an error if the given option value is not a number for '-n'", function(){
-    let input = {option: '-n', optionValue: 'asdf', fileNames: ['file']};
-    let expectedOutput = {isValid: false, error: "head: illegal line count -- asdf"};
-    assert.deepEqual(validateInputs(input), expectedOutput); 
-  });
-
-  it("Should return an error if the given option value is less than 1 for '-c'", function(){
-    let input = {option: '-c', optionValue: '0', fileNames: ['file']};
-    let expectedOutput = {isValid: false, error: "head: illegal byte count -- 0"};
-    assert.deepEqual(validateInputs(input), expectedOutput); 
-  });
-
-  it("Should return an error if the given option value is not a number for '-c'", function(){
-    let input = {option: '-c', optionValue: 'asdf', fileNames: ['file']};
-    let expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
-    assert.deepEqual(validateInputs(input), expectedOutput); 
-  });
-
-  it("Should return an illegal option error if the given option is not valid", function(){
-    let input = {option: '-d', optionValue: 'asdf', fileNames: ['file']};
-    let expectedOutput = {isValid: false, error: "head: illegal option -- d\nusage: head [-n lines | -c bytes] [file ...]"};
-    assert.deepEqual(validateInputs(input), expectedOutput); 
-  });
-});
-
-describe("isOptionValid", function(){
-  it("Should return true if the option is valid", function(){
-    assert.equal(isOptionValid("-n"), true); 
-  });
-
-  it("Should return false if the option is not valid", function(){
-    assert.equal(isOptionValid("-d"), false); 
-  });
-});
-
 describe("validateOptionValue", function(){
   it("Should return an error if the given option value is less than 1 for '-n'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal line count -- 0"};

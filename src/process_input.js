@@ -68,7 +68,7 @@ const validateOffset = function(optionValue){
   if(optionValue == 0){
     isValid = false;
   }
-  
+
   if(isNaN(optionValue)){
     error = `tail: illegal offset -- ${optionValue}`;
     isValid = false;
@@ -76,17 +76,7 @@ const validateOffset = function(optionValue){
   return {isValid, error};
 } 
 
-const validateInputs = function(inputs){
-  if(!isOptionValid(inputs.option)){
-    let error = "head: illegal option -- " + inputs.option.substr(1);
-    error = error + "\n" + HEAD_USAGE;
-    return {isValid: false, error};
-  }
-  return validateOptionValue(inputs.optionValue, inputs.option);
-}
-
 exports.parseInputs = parseInputs;
-exports.validateInputs = validateInputs;
 exports.isOptionValid = isOptionValid;
 exports.validateOptionValue = validateOptionValue;
 exports.isOptionSpecified = isOptionSpecified;
