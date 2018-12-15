@@ -36,14 +36,14 @@ const newFileNotFoundMsg = function(commandName, fileName) {
   return `${commandName}: ${fileName}: No such file or directory`;
 };
 
-const runCommand = function(commandData, messageProvider, commandOperations) {
+const runCommand = function(commandData, fileNotFoundMsgProvider, commandOperations) {
   const { option, files, optionValue } = commandData;
   let commandOperation = commandOperations[option];
   let contentJoiners = { "-n": "\n\n", "-c": "\n" };
 
   let resultedContents = files.map(file => {
     if (!file.doesExists) {
-      return messageProvider(file.name);
+      return fileNotFoundMsgProvider(file.name);
     }
 
     if (files.length == 1) {
