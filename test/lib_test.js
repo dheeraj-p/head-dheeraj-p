@@ -371,6 +371,32 @@ describe("getLinesFromTail", function() {
 
     assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
   });
+
+  it("should return lines when number of lines is specified for a file ending with new line character", function() {
+    let fileContents =
+      "This is line 1\n" +
+      "This is line 2\n" +
+      "This is line 3\n" +
+      "This is line 4\n" +
+      "This is line 5\n" +
+      "This is line 6\n" +
+      "This is line 7\n" +
+      "This is line 8\n" +
+      "This is line 9\n" +
+      "This is line 10\n" +
+      "This is line 11\n";
+
+    let file = newFile("testFile", fileContents, true);
+
+    let expectedOutput =
+      "This is line 7\n" +
+      "This is line 8\n" +
+      "This is line 9\n" +
+      "This is line 10\n" +
+      "This is line 11";
+
+    assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
+  });
 });
 
 describe("getCharsFromTail", function() {
