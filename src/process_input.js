@@ -54,6 +54,7 @@ const isOptionValueNotValid = optionValue => optionValue < 1 || !isFinite(option
 const validateOptionValue = function(optionValue, option){
   let isValid = true, error = "";
   let optionDescripitions = {'-c': "byte", "-n": "line"};
+
   if(isOptionValueNotValid(optionValue)){
     let optionDescription = optionDescripitions[option];
     isValid = false;
@@ -67,6 +68,7 @@ const validateOffset = function(optionValue){
   if(optionValue == 0){
     isValid = false;
   }
+  
   if(isNaN(optionValue)){
     error = `tail: illegal offset -- ${optionValue}`;
     isValid = false;

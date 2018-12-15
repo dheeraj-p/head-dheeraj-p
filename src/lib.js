@@ -15,6 +15,7 @@ const getLinesFromTail = function(file, numberOfLines = 10) {
   if (file.contents.endsWith("\n")) {
     lines.pop();
   }
+  
   let tailedLines = lines.slice(-numberOfLines);
   return tailedLines.join("\n");
 };
@@ -39,17 +40,21 @@ const runCommand = function(commandData, messageProvider, commandOperations) {
   const { option, files, optionValue } = commandData;
   let commandOperation = commandOperations[option];
   let contentJoiners = { "-n": "\n\n", "-c": "\n" };
+
   let resultedContents = files.map(file => {
     if (!file.doesExists) {
       return messageProvider(file.name);
     }
+
     if (files.length == 1) {
       return commandOperation(files[0], optionValue);
     }
+
     let header = createHeading(file.name);
     let resultedFileContents = commandOperation(file, optionValue);
     return header + "\n" + resultedFileContents;
   });
+
   return resultedContents.join(contentJoiners[option]);
 };
 
@@ -92,14 +97,17 @@ const getOffsetValidator = function(command){
 const getFinalOutput = function(inputs, reader, doesFileExists, command){
   let userInputs = parseInputs(inputs);
   const offsetValidator = getOffsetValidator(command);
+
   const validatedOffset = offsetValidator(userInputs.optionValue, userInputs.option);
   if (!validatedOffset.isValid) {
     return validatedOffset.error;
   }
+
   const commandData = createCommandData(userInputs, reader, doesFileExists);
   if(command === "head"){
     return head(commandData);
   }
+
   return tail(commandData);
 }
 
