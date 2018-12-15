@@ -64,6 +64,9 @@ const validateOptionValue = function(option, optionValue){
 
 const validateOffset = function(optionValue){
   let isValid = true, error = "";
+  if(optionValue == 0){
+    isValid = false;
+  }
   if(isNaN(optionValue)){
     error = `tail: illegal offset -- ${optionValue}`;
     isValid = false;

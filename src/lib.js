@@ -100,9 +100,6 @@ const runTail = function(inputs, reader, doesFileExists) {
   if (!validatedOffset.isValid) {
     return validatedOffset.error;
   }
-  if (userInputs.optionValue == 0) {
-    return "";
-  }
   const tailData = createCommandData(userInputs, reader, doesFileExists);
   return tail(tailData);
 };
