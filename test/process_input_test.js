@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {parseInputs,
        validateOffsetHead,
-       validateOffset,
+       validateOffsetTail,
        isOptionSpecified,
        newParsedInputs} = require('../src/process_input.js');
 
@@ -59,7 +59,7 @@ describe("isOptionSpecified", function(){
   }); 
 });
 
-describe("isOptionSpecified", function(){
+describe("validateOffsetTail", function(){
   it("should return encapsulated inputs for given option, optionValue and fileNames", function(){
     const expectedOutput = {option: '-n', optionValue: 10, fileNames: ['file1', 'file2']};
     assert.deepEqual(newParsedInputs("-n", 10, ['file1', 'file2']), expectedOutput);
@@ -68,10 +68,10 @@ describe("isOptionSpecified", function(){
 
 describe('validateOffset', function(){
   it('should provide error for illegal offset', function(){
-    assert.deepEqual(validateOffset("dfs"), {isValid: false, error: "tail: illegal offset -- dfs"});
+    assert.deepEqual(validateOffsetTail("dfs"), {isValid: false, error: "tail: illegal offset -- dfs"});
   });
 
   it('should not provide error for legal offset', function(){
-    assert.deepEqual(validateOffset(3), {isValid: true, error: ""});
+    assert.deepEqual(validateOffsetTail(3), {isValid: true, error: ""});
   });
 });

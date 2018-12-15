@@ -59,7 +59,7 @@ const validateOffsetHead = function(optionValue, option){
   return {isValid, error};
 }
 
-const validateOffset = function(optionValue){
+const validateOffsetTail = function(optionValue){
   let isValid = true, error = "";
   if(optionValue == 0){
     isValid = false;
@@ -82,4 +82,4 @@ exports.getNumberOptionInputs = getNumberOptionInputs;
 exports.getOptionWithValueInputs = getOptionWithValueInputs;
 exports.getDefaultInputs = getDefaultInputs;
 exports.newParsedInputs = newParsedInputs;
-exports.validateOffset = validateOffset;
+exports.validateOffsetTail = validateOffsetTail;

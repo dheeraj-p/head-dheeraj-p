@@ -1,5 +1,5 @@
 const { newFile } = require("./file.js");
-const { parseInputs, validateOffsetHead, validateOffset } = require("./process_input.js");
+const { parseInputs, validateOffsetHead, validateOffsetTail } = require("./process_input.js");
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
   let lines = file.getLines();
@@ -91,7 +91,7 @@ const getOffsetValidator = function(command){
   if(command === "head"){
     return validateOffsetHead;
   }
-  return validateOffset;
+  return validateOffsetTail;
 }
 
 const getFinalOutput = function(inputs, reader, doesFileExists, command){
