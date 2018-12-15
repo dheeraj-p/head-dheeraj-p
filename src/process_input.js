@@ -1,5 +1,3 @@
-const HEAD_USAGE = "usage: head [-n lines | -c bytes] [file ...]";
-
 const isOptionSpecified = optionCandidate => {
   return optionCandidate.startsWith('-') && optionCandidate.length > 1;
 }
