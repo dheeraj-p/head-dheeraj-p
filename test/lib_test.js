@@ -419,27 +419,41 @@ describe("getCharsFromTail", function() {
   });
 });
 
-describe("newFileNotFoundMsg", function(){
-  it("should return a 'file or directory not found' message with command name and filename", function(){
-    assert.equal(newFileNotFoundMsg("head", "sampleFile"), "head: sampleFile: No such file or directory");
+describe("newFileNotFoundMsg", function() {
+  it("should return a 'file or directory not found' message with command name and filename", function() {
+    assert.equal(
+      newFileNotFoundMsg("head", "sampleFile"),
+      "head: sampleFile: No such file or directory"
+    );
   });
 });
 
-xdescribe('createCommandData', function(){
-  it('should return command data containing file objects when user gives input with existing files', function(){
+xdescribe("createCommandData", function() {
+  it("should return command data containing file objects when user gives input with existing files", function() {
     const userInputs = {
-      option: '-n', 
+      option: "-n",
       optionValue: 10,
-      fileNames : ["existing_helloWorldFile"]
+      fileNames: ["existing_helloWorldFile"]
     };
-    const helloWorldReader = mockReader("existing_helloWorldFile", "utf-8", "Hello World");
-    const helloWorldFile = newFile('existing_helloWorldFile', "Hello World", true);
+    const helloWorldReader = mockReader(
+      "existing_helloWorldFile",
+      "utf-8",
+      "Hello World"
+    );
+    const helloWorldFile = newFile(
+      "existing_helloWorldFile",
+      "Hello World",
+      true
+    );
     const expectedOutput = {
-      option : '-n',
+      option: "-n",
       optionValue: 10,
       files: [helloWorldFile]
-    }
-    assert.deepEqual(createCommandData(userInputs, helloWorldReader, doesFileExists), expectedOutput);
+    };
+    assert.deepEqual(
+      createCommandData(userInputs, helloWorldReader, doesFileExists),
+      expectedOutput
+    );
   });
 });
 
@@ -591,4 +605,9 @@ describe("runTail", function() {
       "tail: illegal offset -- dsf"
     );
   });
-})
+
+  it("should return empty string for offset 0", function() {
+    let inputs = ["-0", "helloWorldfile1"];
+    assert.equal(runTail(inputs, readHelloWorld, doesFileExists), "");
+  });
+});
