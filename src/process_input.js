@@ -51,7 +51,7 @@ const isOptionValid = function(option){
 
 const isOptionValueNotValid = optionValue => optionValue < 1 || !isFinite(optionValue);
 
-const validateOptionValue = function(optionValue, option){
+const validateOffsetHead = function(optionValue, option){
   let isValid = true, error = "";
   let optionDescripitions = {'-c': "byte", "-n": "line"};
 
@@ -78,7 +78,7 @@ const validateOffset = function(optionValue){
 
 exports.parseInputs = parseInputs;
 exports.isOptionValid = isOptionValid;
-exports.validateOptionValue = validateOptionValue;
+exports.validateOffsetHead = validateOffsetHead;
 exports.isOptionSpecified = isOptionSpecified;
 exports.isNumberOption = isNumberOption;
 exports.isOptionWithValue = isOptionWithValue;

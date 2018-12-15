@@ -1,5 +1,5 @@
 const { newFile } = require("./file.js");
-const { parseInputs, validateOptionValue, validateOffset } = require("./process_input.js");
+const { parseInputs, validateOffsetHead, validateOffset } = require("./process_input.js");
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
   let lines = file.getLines();
@@ -15,7 +15,7 @@ const getLinesFromTail = function(file, numberOfLines = 10) {
   if (file.contents.endsWith("\n")) {
     lines.pop();
   }
-  
+
   let tailedLines = lines.slice(-numberOfLines);
   return tailedLines.join("\n");
 };
@@ -89,7 +89,7 @@ const createCommandData = function(userInputs, reader, doesFileExists) {
 
 const getOffsetValidator = function(command){
   if(command === "head"){
-    return validateOptionValue;
+    return validateOffsetHead;
   }
   return validateOffset;
 }

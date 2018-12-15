@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {parseInputs,
        validateInputs,
-       validateOptionValue,
+       validateOffsetHead,
        isOptionValid,
        validateOffset,
        isOptionSpecified,
@@ -29,25 +29,25 @@ describe("parseInputs", function(){
   });
 });
 
-describe("validateOptionValue", function(){
+describe("validateOffsetHead", function(){
   it("Should return an error if the given option value is less than 1 for '-n'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal line count -- 0"};
-    assert.deepEqual(validateOptionValue(0, '-n'), expectedOutput); 
+    assert.deepEqual(validateOffsetHead(0, '-n'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is not a number for '-n'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal line count -- asdf"};
-    assert.deepEqual(validateOptionValue('asdf', '-n'), expectedOutput); 
+    assert.deepEqual(validateOffsetHead('asdf', '-n'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is less than 1 for '-c'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal byte count -- 0"};
-    assert.deepEqual(validateOptionValue(0, '-c'), expectedOutput); 
+    assert.deepEqual(validateOffsetHead(0, '-c'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is not a number for '-c'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
-    assert.deepEqual(validateOptionValue('asdf', '-c'), expectedOutput); 
+    assert.deepEqual(validateOffsetHead('asdf', '-c'), expectedOutput); 
   });
 });
 
