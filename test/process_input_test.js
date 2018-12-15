@@ -1,8 +1,6 @@
 const assert = require('assert');
 const {parseInputs,
-       validateInputs,
        validateOffsetHead,
-       isOptionValid,
        validateOffset,
        isOptionSpecified,
        newParsedInputs} = require('../src/process_input.js');

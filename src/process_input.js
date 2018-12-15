@@ -45,10 +45,6 @@ const parseInputs = function(inputs){
   return getNormalOptionInputs(inputs);
 }
 
-const isOptionValid = function(option){
-  return option == "-n" || option == "-c";
-}
-
 const isOptionValueNotValid = optionValue => optionValue < 1 || !isFinite(optionValue);
 
 const validateOffsetHead = function(optionValue, option){
@@ -77,7 +73,6 @@ const validateOffset = function(optionValue){
 } 
 
 exports.parseInputs = parseInputs;
-exports.isOptionValid = isOptionValid;
 exports.validateOffsetHead = validateOffsetHead;
 exports.isOptionSpecified = isOptionSpecified;
 exports.isNumberOption = isNumberOption;
