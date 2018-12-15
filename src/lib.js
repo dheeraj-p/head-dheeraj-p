@@ -1,5 +1,5 @@
 const { newFile } = require("./file.js");
-const { parseInputs, validateInputs, validateOffset } = require("./process_input.js");
+const { parseInputs, validateOptionValue, validateOffset } = require("./process_input.js");
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
   let lines = file.getLines();
@@ -82,26 +82,33 @@ const createCommandData = function(userInputs, reader, doesFileExists) {
   return headData;
 };
 
-const runHead = function(inputs, reader, doesFileExists) {
-  let userInputs = parseInputs(inputs);
-  let optionValueValidation = validateInputs(userInputs);
-
-  if (!optionValueValidation.isValid) {
-    return optionValueValidation.error;
+const getOffsetValidator = function(command){
+  if(command === "head"){
+    return validateOptionValue;
   }
-  const headData = createCommandData(userInputs, reader, doesFileExists);
-  return head(headData);
-};
+  return validateOffset;
+}
 
-const runTail = function(inputs, reader, doesFileExists) {
+const getFinalOutput = function(inputs, reader, doesFileExists, command){
   let userInputs = parseInputs(inputs);
-
-  const validatedOffset = validateOffset(userInputs.optionValue);
+  const offsetValidator = getOffsetValidator(command);
+  const validatedOffset = offsetValidator(userInputs.optionValue, userInputs.option);
   if (!validatedOffset.isValid) {
     return validatedOffset.error;
   }
-  const tailData = createCommandData(userInputs, reader, doesFileExists);
-  return tail(tailData);
+  const commandData = createCommandData(userInputs, reader, doesFileExists);
+  if(command === "head"){
+    return head(commandData);
+  }
+  return tail(commandData);
+}
+
+const runHead = function(inputs, reader, doesFileExists) {
+  return getFinalOutput(inputs, reader, doesFileExists, "head");
+};
+
+const runTail = function(inputs, reader, doesFileExists) {
+  return getFinalOutput(inputs, reader, doesFileExists, "tail");
 };
 
 exports.getLinesFromHead = getLinesFromHead;
