@@ -51,7 +51,7 @@ const isOptionValid = function(option){
 
 const isOptionValueNotValid = optionValue => optionValue < 1 || !isFinite(optionValue);
 
-const validateOptionValue = function(option, optionValue){
+const validateOptionValue = function(optionValue, option){
   let isValid = true, error = "";
   let optionDescripitions = {'-c': "byte", "-n": "line"};
   if(isOptionValueNotValid(optionValue)){
@@ -80,7 +80,7 @@ const validateInputs = function(inputs){
     error = error + "\n" + HEAD_USAGE;
     return {isValid: false, error};
   }
-  return validateOptionValue(inputs.option, inputs.optionValue);
+  return validateOptionValue(inputs.optionValue, inputs.option);
 }
 
 exports.parseInputs = parseInputs;
