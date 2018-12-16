@@ -119,15 +119,17 @@ const runTail = function(inputs, reader, doesFileExists) {
   return getFinalOutput(inputs, reader, doesFileExists, "tail");
 };
 
-exports.getLinesFromHead = getLinesFromHead;
-exports.getCharsFromHead = getCharsFromHead;
-exports.read = read;
-exports.head = head;
-exports.createHeading = createHeading;
-exports.runHead = runHead;
-exports.getLinesFromTail = getLinesFromTail;
-exports.getCharsFromTail = getCharsFromTail;
-exports.newFileNotFoundMsg = newFileNotFoundMsg;
-exports.createCommandData = createCommandData;
-exports.tail = tail;
-exports.runTail = runTail;
+module.exports = {
+  getLinesFromHead,
+  getCharsFromHead,
+  read,
+  head,
+  createHeading,
+  runHead,
+  getLinesFromTail,
+  getCharsFromTail,
+  newFileNotFoundMsg,
+  createCommandData,
+  tail,
+  runTail
+}

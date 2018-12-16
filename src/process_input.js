@@ -70,14 +70,16 @@ const validateOffsetTail = function(optionValue){
   return {isValid, error};
 } 
 
-exports.parseInputs = parseInputs;
-exports.validateOffsetHead = validateOffsetHead;
-exports.isOptionSpecified = isOptionSpecified;
-exports.isNumberOption = isNumberOption;
-exports.isOptionWithValue = isOptionWithValue;
-exports.getNormalOptionInputs = getNormalOptionInputs;
-exports.getNumberOptionInputs = getNumberOptionInputs;
-exports.getOptionWithValueInputs = getOptionWithValueInputs;
-exports.getDefaultInputs = getDefaultInputs;
-exports.newParsedInputs = newParsedInputs;
-exports.validateOffsetTail = validateOffsetTail;
+module.exports = {
+  parseInputs,
+  validateOffsetHead,
+  isOptionSpecified,
+  isNumberOption,
+  isOptionWithValue,
+  getNormalOptionInputs,
+  getNumberOptionInputs,
+  getOptionWithValueInputs,
+  getDefaultInputs,
+  newParsedInputs,
+  validateOffsetTail
+}

@@ -8,4 +8,4 @@ const getLines = function(){
   return this.contents.split("\n");
 }
 
-exports.newFile = newFile;
+module.exports = { newFile };
