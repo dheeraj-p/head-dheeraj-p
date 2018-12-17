@@ -59,14 +59,14 @@ describe("isOptionSpecified", function(){
   }); 
 });
 
-describe("validateOffsetTail", function(){
+describe("newParsedInputs", function(){
   it("should return encapsulated inputs for given option, optionValue and fileNames", function(){
     const expectedOutput = {option: '-n', optionValue: 10, fileNames: ['file1', 'file2']};
     assert.deepEqual(newParsedInputs("-n", 10, ['file1', 'file2']), expectedOutput);
   }); 
 });
 
-describe('validateOffset', function(){
+describe('validateOffsetTail', function(){
   it('should provide error for illegal offset', function(){
     assert.deepEqual(validateOffsetTail("dfs"), {isValid: false, error: "tail: illegal offset -- dfs"});
   });
