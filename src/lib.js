@@ -88,10 +88,8 @@ const createCommandData = function(userInputs, reader, doesFileExists) {
 };
 
 const getOffsetValidator = function(command){
-  if(command === "head"){
-    return validateOffsetHead;
-  }
-  return validateOffsetTail;
+  const validators = {"head": validateOffsetHead, "tail": validateOffsetTail};
+  return validators[command];
 }
 
 const getFinalOutput = function(inputs, reader, doesFileExists, command){
