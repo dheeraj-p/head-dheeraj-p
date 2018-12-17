@@ -55,7 +55,7 @@ describe("isOptionSpecified", function(){
   }); 
 
   it("should return false if given option candidate is not an option", function(){
-    assert.equal(isOptionSpecified("-n"), true);
+    assert.equal(isOptionSpecified("cd"), false);
   }); 
 });
 
