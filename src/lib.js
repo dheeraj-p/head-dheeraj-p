@@ -102,11 +102,9 @@ const getFinalOutput = function(inputs, reader, doesFileExists, command){
   }
 
   const commandData = createCommandData(userInputs, reader, doesFileExists);
-  if(command === "head"){
-    return head(commandData);
-  }
+  const commandExecutor = {head, tail};
 
-  return tail(commandData);
+  return commandExecutor[command](commandData);
 }
 
 const runHead = function(inputs, reader, doesFileExists) {
