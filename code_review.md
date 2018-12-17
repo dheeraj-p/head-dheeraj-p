@@ -1,6 +1,8 @@
 1. file name : .gitignore
    description : confusing commit
 
+
+-------DONE----------
 2. file name : head.js
    line no : 1
    description : destructing can be used
@@ -9,6 +11,8 @@
    line no : 5
    description : `runHead` bad function name
 
+
+-------DONE----------
 4. file name : tail.js
    line no : 1
    description : destructing can be used
@@ -111,10 +115,14 @@
     line no : 30
     description : `validateOffsetHead` has missing test for valid offset
 
+
+-------DONE----------
 30. file name : process_input_test.js
     line no : 52 & 58
     description : misleading tests
 
+
+-------DONE----------
 31. file name : process_input_test.js
     line no : 62 & 69
     description : misleading tests
