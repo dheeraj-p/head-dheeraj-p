@@ -1,4 +1,4 @@
-const runHead = require('./src/lib.js').runHead;
+const { runHead } = require('./src/lib.js');
 const {readFileSync, existsSync} = require('fs');
 
 const main = function(){
