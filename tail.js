@@ -1,4 +1,4 @@
-const {runTail} = require('./src/lib.js');
+const {runTail} = require('./src/libs/text_utils');
 const {readFileSync, existsSync} = require('fs');
 
 const main = function(){

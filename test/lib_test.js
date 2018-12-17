@@ -12,8 +12,8 @@ const {
   createCommandData,
   tail,
   runTail
-} = require("../src/lib.js");
-const { newFile } = require("../src/file.js");
+} = require("../src/libs/text_utils.js");
+const { newFile } = require("../src/libs/file.js");
 
 describe("getLinesFromHead", function() {
   it("should return no lines when any number of lines are required of an empty file", function() {

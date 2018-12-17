@@ -1,5 +1,5 @@
 const assert = require('assert');
-const {newFile} = require('../src/file.js');
+const {newFile} = require('../src/libs/file.js');
 
 describe('file : getLines', function(){
   it("should return empty array when an empty file is given", function(){
