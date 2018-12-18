@@ -4,6 +4,10 @@ const {parseInputs,
        validateOffsetTail,
        isOptionSpecified,
        newParsedInputs} = require('../src/libs/process_input.js');
+const { 
+  getTailOffsetError,
+  getHeadOffsetError
+} = require('../src/libs/error.js');
 
 describe("parseInputs", function(){
   it("should return inputs in form of object containing all the file names in default case", function(){
@@ -33,29 +37,30 @@ describe("parseInputs", function(){
 });
 
 describe("validateOffsetHead", function(){
+  const errorMessageProvider = getHeadOffsetError;
   it("Should return an error if the given option value is less than 1 for '-n'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal line count -- 0"};
-    assert.deepEqual(validateOffsetHead(0, '-n'), expectedOutput); 
+    assert.deepEqual(validateOffsetHead(0, errorMessageProvider, '-n'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is not a number for '-n'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal line count -- asdf"};
-    assert.deepEqual(validateOffsetHead('asdf', '-n'), expectedOutput); 
+    assert.deepEqual(validateOffsetHead('asdf', errorMessageProvider, '-n'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is less than 1 for '-c'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal byte count -- 0"};
-    assert.deepEqual(validateOffsetHead(0, '-c'), expectedOutput); 
+    assert.deepEqual(validateOffsetHead(0, errorMessageProvider,'-c'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is not a number for '-c'", function(){
     let expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
-    assert.deepEqual(validateOffsetHead('asdf', '-c'), expectedOutput); 
+    assert.deepEqual(validateOffsetHead('asdf', errorMessageProvider, '-c'), expectedOutput); 
   });
 
   it("Should return no error when a valid offset is given for any option",function(){
     const expectedOutput = {isValid: true, error: ""};
-    assert.deepEqual(validateOffsetHead(1, '-n'), expectedOutput);
+    assert.deepEqual(validateOffsetHead(1, errorMessageProvider, '-n'), expectedOutput);
   });
 });
 
@@ -77,11 +82,12 @@ describe("newParsedInputs", function(){
 });
 
 describe('validateOffsetTail', function(){
+  const errorMessageProvider = getTailOffsetError;
   it('should provide error for illegal offset', function(){
-    assert.deepEqual(validateOffsetTail("dfs"), {isValid: false, error: "tail: illegal offset -- dfs"});
+    assert.deepEqual(validateOffsetTail("dfs", errorMessageProvider), {isValid: false, error: "tail: illegal offset -- dfs"});
   });
 
   it('should not provide error for legal offset', function(){
-    assert.deepEqual(validateOffsetTail(3), {isValid: true, error: ""});
+    assert.deepEqual(validateOffsetTail(3, errorMessageProvider), {isValid: true, error: ""});
   });
 });

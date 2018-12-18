@@ -1,5 +1,6 @@
 const { newFile } = require("./file.js");
 const { parseInputs, validateOffsetHead, validateOffsetTail } = require("./process_input.js");
+const { getHeadOffsetError, getTailOffsetError} = require('./error.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
   let lines = file.getLines();
@@ -92,11 +93,17 @@ const getOffsetValidator = function(command){
   return validators[command];
 }
 
+const getOffsetErrorProvider = function(command){
+  const offsetErrorProviders = {"head": getHeadOffsetError, "tail": getTailOffsetError};
+  return offsetErrorProviders[command];
+}
+
 const getFinalOutput = function(inputs, reader, doesFileExists, command){
   let userInputs = parseInputs(inputs);
   const offsetValidator = getOffsetValidator(command);
+  const offsetErrorProvider = getOffsetErrorProvider(command);
 
-  const validatedOffset = offsetValidator(userInputs.optionValue, userInputs.option);
+  const validatedOffset = offsetValidator(userInputs.optionValue, offsetErrorProvider,userInputs.option);
   if (!validatedOffset.isValid) {
     return validatedOffset.error;
   }

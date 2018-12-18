@@ -45,26 +45,26 @@ const parseInputs = function(inputs){
 
 const isOptionValueNotValid = optionValue => optionValue < 1 || !isFinite(optionValue);
 
-const validateOffsetHead = function(optionValue, option){
+const validateOffsetHead = function(optionValue, errorMessageProvider, option){
   let isValid = true, error = "";
   let optionDescripitions = {'-c': "byte", "-n": "line"};
 
   if(isOptionValueNotValid(optionValue)){
     let optionDescription = optionDescripitions[option];
     isValid = false;
-    error = `head: illegal ${optionDescription} count -- ${optionValue}`;
+    error = errorMessageProvider(optionValue, optionDescription);
   }
   return {isValid, error};
 }
 
-const validateOffsetTail = function(optionValue){
+const validateOffsetTail = function(optionValue, errorMessageProvider){
   let isValid = true, error = "";
   if(optionValue == 0){
     isValid = false;
   }
 
   if(isNaN(optionValue)){
-    error = `tail: illegal offset -- ${optionValue}`;
+    error = errorMessageProvider(optionValue);
     isValid = false;
   }
   return {isValid, error};
