@@ -241,12 +241,12 @@ describe("runHead", function() {
     "utf-8",
     "Hello World"
   );
-  it("should head characters of a single hello world file", function() {
+  it("should head characters of a single file", function() {
     let inputs = ["-c", "2", "existing_helloWorldTest"];
     assert.equal(runHead(inputs, readHelloWorld, doesFileExists), "He");
   });
 
-  it("should head lines of a single hello world file", function() {
+  it("should head lines of a single file", function() {
     let inputs = ["-n", "2", "existing_helloWorldTest"];
     assert.equal(
       runHead(inputs, readHelloWorld, doesFileExists),
@@ -254,7 +254,7 @@ describe("runHead", function() {
     );
   });
 
-  it("should head characters of a multiple hello world files", function() {
+  it("should head characters of a multiple files", function() {
     let inputs = [
       "-c",
       "2",
@@ -538,12 +538,12 @@ describe("runTail", function() {
     "utf-8",
     "Hello World"
   );
-  it("should tail characters of a single hello world file", function() {
+  it("should tail characters of a single file", function() {
     let inputs = ["-c", "2", "existing_helloWorldTest"];
     assert.equal(runTail(inputs, readHelloWorld, doesFileExists), "ld");
   });
 
-  it("should tail lines of a single hello world file", function() {
+  it("should tail lines of a single file", function() {
     let inputs = ["-n", "2", "existing_helloWorldTest"];
     assert.equal(
       runTail(inputs, readHelloWorld, doesFileExists),
@@ -551,7 +551,7 @@ describe("runTail", function() {
     );
   });
 
-  it("should tail characters of a multiple hello world files", function() {
+  it("should tail characters of a multiple files", function() {
     let inputs = [
       "-c",
       "2",
