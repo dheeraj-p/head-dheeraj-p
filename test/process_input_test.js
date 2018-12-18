@@ -47,6 +47,11 @@ describe("validateOffsetHead", function(){
     let expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
     assert.deepEqual(validateOffsetHead('asdf', '-c'), expectedOutput); 
   });
+
+  it("Should return no error when a valid offset is given for any option",function(){
+    const expectedOutput = {isValid: true, error: ""};
+    assert.deepEqual(validateOffsetHead(1, '-n'), expectedOutput);
+  });
 });
 
 describe("isOptionSpecified", function(){
