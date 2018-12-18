@@ -21,7 +21,7 @@ describe("getLinesFromHead", function() {
     assert.deepEqual(getLinesFromHead(file, 1), "");
   });
 
-  it("should return 10 lines by default when number of lines is not specified", function() {
+  it("should return 10 lines from top by default when number of lines is not specified", function() {
     let fileContents =
       "This is line 1\n" +
       "This is line 2\n" +
@@ -52,7 +52,7 @@ describe("getLinesFromHead", function() {
     assert.deepEqual(getLinesFromHead(file), expectedOutput);
   });
 
-  it("should return lines when number of lines is specified for a file", function() {
+  it("should return lines from top when number of lines is specified for a file", function() {
     let fileContents =
       "This is line 1\n" +
       "This is line 2\n" +
@@ -315,7 +315,7 @@ describe("getLinesFromTail", function() {
     assert.deepEqual(getLinesFromTail(file, 1), "");
   });
 
-  it("should return 10 lines by default when number of lines is not specified", function() {
+  it("should return 10 lines from bottom by default when number of lines is not specified", function() {
     let fileContents =
       "This is line 1\n" +
       "This is line 2\n" +
@@ -346,7 +346,7 @@ describe("getLinesFromTail", function() {
     assert.deepEqual(getLinesFromTail(file), expectedOutput);
   });
 
-  it("should return lines when number of lines is specified for a file", function() {
+  it("should return lines from bottom when number of lines is specified for a file", function() {
     let fileContents =
       "This is line 1\n" +
       "This is line 2\n" +
@@ -372,7 +372,7 @@ describe("getLinesFromTail", function() {
     assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
   });
 
-  it("should return lines when number of lines is specified for a file ending with new line character", function() {
+  it("should return lines from bottom ignoring last empty line when number of lines is specified for a file", function() {
     let fileContents =
       "This is line 1\n" +
       "This is line 2\n" +
