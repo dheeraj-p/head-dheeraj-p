@@ -1,6 +1,10 @@
 const { newFile } = require("./file.js");
 const { parseInputs, validateOffsetHead, validateOffsetTail } = require("./process_input.js");
-const { getHeadOffsetError, getTailOffsetError} = require('./error.js');
+const { 
+  getHeadOffsetError,
+  getTailOffsetError,
+  newFileNotFoundMsg
+} = require('./error.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
   let lines = file.getLines();
@@ -31,10 +35,6 @@ const read = function(reader, filepath, encoding) {
 
 const createHeading = function(text) {
   return "==> " + text + " <==";
-};
-
-const newFileNotFoundMsg = function(commandName, fileName) {
-  return `${commandName}: ${fileName}: No such file or directory`;
 };
 
 const runCommand = function(commandData, fileNotFoundMsgProvider, commandOperations) {

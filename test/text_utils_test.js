@@ -419,15 +419,6 @@ describe("getCharsFromTail", function() {
   });
 });
 
-describe("newFileNotFoundMsg", function() {
-  it("should return a 'file or directory not found' message with command name and filename", function() {
-    assert.equal(
-      newFileNotFoundMsg("head", "sampleFile"),
-      "head: sampleFile: No such file or directory"
-    );
-  });
-});
-
 xdescribe("createCommandData", function() {
   it("should return command data containing file objects when user gives input with existing files", function() {
     const userInputs = {

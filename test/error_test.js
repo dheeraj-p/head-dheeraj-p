@@ -1,7 +1,8 @@
 const assert = require("assert");
 const {
   getTailOffsetError,
-  getHeadOffsetError
+  getHeadOffsetError,
+  newFileNotFoundMsg
 } = require("../src/libs/error.js");
 
 describe("getTailOffsetError", function() {
@@ -12,13 +13,22 @@ describe("getTailOffsetError", function() {
 });
 
 describe("getHeadOffsetError", function() {
-    it("should return head's byte count error for given invalid byte count", function() {
-      const expectedOutput = "head: illegal byte count -- 0";
-      assert.equal(getHeadOffsetError(0, "byte"), expectedOutput);
-    });
-
-    it("should return head's line count error for given invalid line count", function() {
-        const expectedOutput = "head: illegal line count -- 0";
-        assert.equal(getHeadOffsetError(0, "line"), expectedOutput);
-      });
+  it("should return head's byte count error for given invalid byte count", function() {
+    const expectedOutput = "head: illegal byte count -- 0";
+    assert.equal(getHeadOffsetError(0, "byte"), expectedOutput);
   });
+
+  it("should return head's line count error for given invalid line count", function() {
+    const expectedOutput = "head: illegal line count -- 0";
+    assert.equal(getHeadOffsetError(0, "line"), expectedOutput);
+  });
+});
+
+describe("newFileNotFoundMsg", function() {
+  it("should return a 'file or directory not found' message with command name and filename", function() {
+    assert.equal(
+      newFileNotFoundMsg("head", "sampleFile"),
+      "head: sampleFile: No such file or directory"
+    );
+  });
+});
