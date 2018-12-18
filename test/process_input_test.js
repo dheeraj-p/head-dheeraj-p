@@ -25,6 +25,11 @@ describe("parseInputs", function(){
     let expectedOutput = {option: '-n', fileNames: ['file1', 'file2', 'file3'], optionValue : '4'};
     assert.deepEqual(parseInputs(['-4', 'file1', 'file2', 'file3']), expectedOutput);
   });
+
+  it("should return inputs in form of object when option and offset are provided separately", function(){
+    let expectedOutput = {option: '-n', fileNames: ['file1', 'file2', 'file3'], optionValue : '4'};
+    assert.deepEqual(parseInputs(['-n','4', 'file1', 'file2', 'file3']), expectedOutput);
+  });
 });
 
 describe("validateOffsetHead", function(){
