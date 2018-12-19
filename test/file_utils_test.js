@@ -13,6 +13,7 @@ const {
   runTail
 } = require("../src/libs/file_utils.js");
 const { createFile } = require("../src/libs/file.js");
+const { assertObjectList } = require('./utils/object_matcher.js');
 
 describe("getLinesFromHead", function() {
   it("should return no lines when any number of lines are required of an empty file", function() {
@@ -418,32 +419,38 @@ describe("getCharsFromTail", function() {
   });
 });
 
-xdescribe("createCommandData", function() {
-  it("should return command data containing file objects when user gives input with existing files", function() {
-    const userInputs = {
-      option: "-n",
-      optionValue: 10,
-      fileNames: ["existing_helloWorldFile"]
-    };
-    const helloWorldReader = mockReader(
-      "existing_helloWorldFile",
-      "utf-8",
-      "Hello World"
-    );
+describe("createCommandData", function() {
+  const userInputs = {
+    option: "-n",
+    optionValue: 10,
+    fileNames: ["existing_helloWorldFile"]
+  };
+
+  const helloWorldReader = mockReader(
+    "existing_helloWorldFile",
+    "utf-8",
+    "Hello World"
+  );
+
+  const actual = createCommandData(userInputs, helloWorldReader, doesFileExists);
+  
+  it("should preserve the option given by user", function() {
+    assert.deepEqual(actual.option, '-n');
+  });
+
+  it("should preserve the option value given by user", function() {
+    assert.deepEqual(actual.optionValue, 10);
+  });
+
+  it("should contain files that have been read using given reader", function() {
     const helloWorldFile = createFile(
       "existing_helloWorldFile",
       "Hello World",
       true
     );
-    const expectedOutput = {
-      option: "-n",
-      optionValue: 10,
-      files: [helloWorldFile]
-    };
-    assert.deepEqual(
-      createCommandData(userInputs, helloWorldReader, doesFileExists),
-      expectedOutput
-    );
+    const expectedFiles = [helloWorldFile];
+    const keysToMatch = ["name", "contents", "doesExists"];
+    assertObjectList(actual.files, expectedFiles, keysToMatch);
   });
 });
 
