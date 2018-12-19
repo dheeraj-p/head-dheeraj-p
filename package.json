@@ -1,0 +1,25 @@
+{
+  "name": "head-tail-js",
+  "version": "0.0.1",
+  "description": "Utilities similar to bash head and tail",
+  "main": "head.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STEP-tw/head-dheeraj-p.git"
+  },
+  "author": "Dheeraj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STEP-tw/head-dheeraj-p/issues"
+  },
+  "homepage": "https://github.com/STEP-tw/head-dheeraj-p#readme",
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
+}
