@@ -1,4 +1,4 @@
-const { newFile } = require("./file.js");
+const { createFile } = require("./file.js");
 const { parseInputs, validateOffsetHead, validateOffsetTail } = require("./process_input.js");
 const { 
   getHeadOffsetError,
@@ -75,9 +75,9 @@ const createCommandData = function(userInputs, reader, doesFileExists) {
   const fileNames = userInputs.fileNames;
   const files = fileNames.map(fileName => {
     if (doesFileExists(fileName)) {
-      return newFile(fileName, read(reader, fileName, "utf-8"), true);
+      return createFile(fileName, read(reader, fileName, "utf-8"), true);
     }
-    return newFile(fileName, "", false);
+    return createFile(fileName, "", false);
   });
 
   let headData = {

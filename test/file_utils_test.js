@@ -12,11 +12,11 @@ const {
   tail,
   runTail
 } = require("../src/libs/file_utils.js");
-const { newFile } = require("../src/libs/file.js");
+const { createFile } = require("../src/libs/file.js");
 
 describe("getLinesFromHead", function() {
   it("should return no lines when any number of lines are required of an empty file", function() {
-    let file = newFile("testFile", "", true);
+    let file = createFile("testFile", "", true);
     assert.deepEqual(getLinesFromHead(file, 1), "");
   });
 
@@ -34,7 +34,7 @@ describe("getLinesFromHead", function() {
       "This is line 10\n" +
       "This is line 11";
 
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
 
     let expectedOutput =
       "This is line 1\n" +
@@ -65,7 +65,7 @@ describe("getLinesFromHead", function() {
       "This is line 10\n" +
       "This is line 11";
 
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
 
     let expectedOutput =
       "This is line 1\n" +
@@ -80,12 +80,12 @@ describe("getLinesFromHead", function() {
 
 describe("getCharsFromHead", function() {
   it("Should return empty string when an empty file is given", function() {
-    let file = newFile("testFile", "", true);
+    let file = createFile("testFile", "", true);
     assert.deepEqual(getCharsFromHead(file, 4), "");
   });
 
   it("Should return first N characters of one liner file", function() {
-    let file = newFile("testFile", "This is one liner file", true);
+    let file = createFile("testFile", "This is one liner file", true);
     assert.deepEqual(getCharsFromHead(file, 4), "This");
   });
 
@@ -93,7 +93,7 @@ describe("getCharsFromHead", function() {
     let fileContents =
       "This is file \n contains multiple lines\n" +
       "so that I can test my function.";
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
     assert.deepEqual(getCharsFromHead(file, 14), "This is file \n");
   });
 });
@@ -139,16 +139,16 @@ describe("read", function() {
 
 describe("head", function() {
   it("should return headed content when only one file is provided for -c option", function() {
-    let file = newFile("testFile", "this is test file contents", true);
+    let file = createFile("testFile", "this is test file contents", true);
     let input = { option: "-c", files: [file], optionValue: 4 };
     let expectedOutput = "this";
     assert.deepEqual(head(input), expectedOutput);
   });
 
   it("should return headed content when multiple files are provided for -c option", function() {
-    let file1 = newFile("testFile1", "this is test file1 contents", true);
-    let file2 = newFile("testFile2", "And this is test file2 contents", true);
-    let file3 = newFile("testFile3", "I think this is the last file", true);
+    let file1 = createFile("testFile1", "this is test file1 contents", true);
+    let file2 = createFile("testFile2", "And this is test file2 contents", true);
+    let file3 = createFile("testFile3", "I think this is the last file", true);
     let input = { option: "-c", files: [file1, file2, file3], optionValue: 4 };
     let expectedOutput =
       "==> testFile1 <==\n" +
@@ -167,7 +167,7 @@ describe("head", function() {
       "this is third line\n" +
       "I think this is fourth line\n" +
       "And this seems to be last";
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
     let input = { option: "-n", files: [file], optionValue: 3 };
     let expectedOutput =
       "This is first line of file\n" +
@@ -198,9 +198,9 @@ describe("head", function() {
       "I think this is fourth line 3\n" +
       "And this seems to be last 3";
 
-    let file1 = newFile("testFile1", file1Contents, true);
-    let file2 = newFile("testFile2", file2Contents, true);
-    let file3 = newFile("testFile3", file3Contents, true);
+    let file1 = createFile("testFile1", file1Contents, true);
+    let file2 = createFile("testFile2", file2Contents, true);
+    let file3 = createFile("testFile3", file3Contents, true);
 
     let input = { option: "-n", files: [file1, file2, file3], optionValue: 3 };
     let expectedOutput =
@@ -310,7 +310,7 @@ describe("runHead", function() {
 
 describe("getLinesFromTail", function() {
   it("should return no lines when any number of lines are required of an empty file", function() {
-    let file = newFile("testFile", "", true);
+    let file = createFile("testFile", "", true);
     assert.deepEqual(getLinesFromTail(file, 1), "");
   });
 
@@ -328,7 +328,7 @@ describe("getLinesFromTail", function() {
       "This is line 10\n" +
       "This is line 11";
 
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
 
     let expectedOutput =
       "This is line 2\n" +
@@ -359,7 +359,7 @@ describe("getLinesFromTail", function() {
       "This is line 10\n" +
       "This is line 11";
 
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
 
     let expectedOutput =
       "This is line 7\n" +
@@ -385,7 +385,7 @@ describe("getLinesFromTail", function() {
       "This is line 10\n" +
       "This is line 11\n";
 
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
 
     let expectedOutput =
       "This is line 7\n" +
@@ -400,12 +400,12 @@ describe("getLinesFromTail", function() {
 
 describe("getCharsFromTail", function() {
   it("Should return empty string when an empty file is given", function() {
-    let file = newFile("testFile", "", true);
+    let file = createFile("testFile", "", true);
     assert.deepEqual(getCharsFromTail(file, 4), "");
   });
 
   it("Should return last N characters of one liner file", function() {
-    let file = newFile("testFile", "This is one liner file", true);
+    let file = createFile("testFile", "This is one liner file", true);
     assert.deepEqual(getCharsFromTail(file, 4), "file");
   });
 
@@ -413,7 +413,7 @@ describe("getCharsFromTail", function() {
     let fileContents =
       "This is file \n contains multiple lines\n" +
       "so that I can test my function.";
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
     assert.deepEqual(getCharsFromTail(file, 14), "t my function.");
   });
 });
@@ -430,7 +430,7 @@ xdescribe("createCommandData", function() {
       "utf-8",
       "Hello World"
     );
-    const helloWorldFile = newFile(
+    const helloWorldFile = createFile(
       "existing_helloWorldFile",
       "Hello World",
       true
@@ -449,16 +449,16 @@ xdescribe("createCommandData", function() {
 
 describe("tail", function() {
   it("should return tailed content when only one file is provided for -c option", function() {
-    let file = newFile("testFile", "this is test file contents", true);
+    let file = createFile("testFile", "this is test file contents", true);
     let input = { option: "-c", files: [file], optionValue: 4 };
     let expectedOutput = "ents";
     assert.deepEqual(tail(input), expectedOutput);
   });
 
   it("should return tailed content when multiple files are provided for -c option", function() {
-    let file1 = newFile("testFile1", "this is test file1 contents", true);
-    let file2 = newFile("testFile2", "And this is test file2 contents", true);
-    let file3 = newFile("testFile3", "I think this is the last file", true);
+    let file1 = createFile("testFile1", "this is test file1 contents", true);
+    let file2 = createFile("testFile2", "And this is test file2 contents", true);
+    let file3 = createFile("testFile3", "I think this is the last file", true);
     let input = { option: "-c", files: [file1, file2, file3], optionValue: 4 };
     let expectedOutput =
       "==> testFile1 <==\n" +
@@ -477,7 +477,7 @@ describe("tail", function() {
       "this is third line\n" +
       "I think this is fourth line\n" +
       "And this seems to be last";
-    let file = newFile("testFile", fileContents, true);
+    let file = createFile("testFile", fileContents, true);
     let input = { option: "-n", files: [file], optionValue: 3 };
     let expectedOutput =
       "this is third line\n" +
@@ -508,9 +508,9 @@ describe("tail", function() {
       "I think this is fourth line 3\n" +
       "And this seems to be last 3";
 
-    let file1 = newFile("testFile1", file1Contents, true);
-    let file2 = newFile("testFile2", file2Contents, true);
-    let file3 = newFile("testFile3", file3Contents, true);
+    let file1 = createFile("testFile1", file1Contents, true);
+    let file2 = createFile("testFile2", file2Contents, true);
+    let file3 = createFile("testFile3", file3Contents, true);
 
     let input = { option: "-n", files: [file1, file2, file3], optionValue: 3 };
     let expectedOutput =
