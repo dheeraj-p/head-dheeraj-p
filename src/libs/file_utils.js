@@ -7,8 +7,7 @@ const {
 } = require('./error.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
-  const lines = file.getLines();
-  return lines.slice(0, numberOfLines).join("\n");
+  return file.getLines().slice(0, numberOfLines).join("\n");
 };
 
 const getCharsFromHead = function(file, numberOfCharacters) {
