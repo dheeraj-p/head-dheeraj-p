@@ -8,11 +8,10 @@ const {
   runHead,
   getLinesFromTail,
   getCharsFromTail,
-  newFileNotFoundMsg,
   createCommandData,
   tail,
   runTail
-} = require("../src/libs/text_utils.js");
+} = require("../src/libs/file_utils.js");
 const { newFile } = require("../src/libs/file.js");
 
 describe("getLinesFromHead", function() {
