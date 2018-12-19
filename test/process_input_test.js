@@ -11,27 +11,27 @@ const {
 
 describe("parseInputs", function(){
   it("should return inputs in form of object containing all the file names in default case", function(){
-    let expectedOutput = {option: '-n', fileNames: ['file1', 'file2'], optionValue : '10'};
+    const expectedOutput = {option: '-n', fileNames: ['file1', 'file2'], optionValue : '10'};
     assert.deepEqual(parseInputs(['file1', 'file2']), expectedOutput);
   });
 
   it("should return inputs in form of object when option is provided with one file", function(){
-    let expectedOutput = {option: '-n', fileNames: ['file'], optionValue : '4'};
+    const expectedOutput = {option: '-n', fileNames: ['file'], optionValue : '4'};
     assert.deepEqual(parseInputs(['-n4', 'file']), expectedOutput);
   });
 
   it("should return inputs in form of object when option is provided with multiple files", function(){
-    let expectedOutput = {option: '-n', fileNames: ['file1', 'file2', 'file3'], optionValue : '4'};
+    const expectedOutput = {option: '-n', fileNames: ['file1', 'file2', 'file3'], optionValue : '4'};
     assert.deepEqual(parseInputs(['-n4', 'file1', 'file2', 'file3']), expectedOutput);
   });
 
   it("should return inputs in form of object when lines count is provided without option", function(){
-    let expectedOutput = {option: '-n', fileNames: ['file1', 'file2', 'file3'], optionValue : '4'};
+    const expectedOutput = {option: '-n', fileNames: ['file1', 'file2', 'file3'], optionValue : '4'};
     assert.deepEqual(parseInputs(['-4', 'file1', 'file2', 'file3']), expectedOutput);
   });
 
   it("should return inputs in form of object when option and offset are provided separately", function(){
-    let expectedOutput = {option: '-n', fileNames: ['file1', 'file2', 'file3'], optionValue : '4'};
+    const expectedOutput = {option: '-n', fileNames: ['file1', 'file2', 'file3'], optionValue : '4'};
     assert.deepEqual(parseInputs(['-n','4', 'file1', 'file2', 'file3']), expectedOutput);
   });
 });
@@ -39,22 +39,22 @@ describe("parseInputs", function(){
 describe("validateOffsetHead", function(){
   const errorMessageProvider = getHeadOffsetError;
   it("Should return an error if the given option value is less than 1 for '-n'", function(){
-    let expectedOutput = {isValid: false, error: "head: illegal line count -- 0"};
+    const expectedOutput = {isValid: false, error: "head: illegal line count -- 0"};
     assert.deepEqual(validateOffsetHead(0, errorMessageProvider, '-n'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is not a number for '-n'", function(){
-    let expectedOutput = {isValid: false, error: "head: illegal line count -- asdf"};
+    const expectedOutput = {isValid: false, error: "head: illegal line count -- asdf"};
     assert.deepEqual(validateOffsetHead('asdf', errorMessageProvider, '-n'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is less than 1 for '-c'", function(){
-    let expectedOutput = {isValid: false, error: "head: illegal byte count -- 0"};
+    const expectedOutput = {isValid: false, error: "head: illegal byte count -- 0"};
     assert.deepEqual(validateOffsetHead(0, errorMessageProvider,'-c'), expectedOutput); 
   });
 
   it("Should return an error if the given option value is not a number for '-c'", function(){
-    let expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
+    const expectedOutput = {isValid: false, error: "head: illegal byte count -- asdf"};
     assert.deepEqual(validateOffsetHead('asdf', errorMessageProvider, '-c'), expectedOutput); 
   });
 

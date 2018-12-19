@@ -47,10 +47,10 @@ const isOptionValueNotValid = optionValue => optionValue < 1 || !isFinite(option
 
 const validateOffsetHead = function(optionValue, errorMessageProvider, option){
   let isValid = true, error = "";
-  let optionDescripitions = {'-c': "byte", "-n": "line"};
+  const optionDescripitions = {'-c': "byte", "-n": "line"};
 
   if(isOptionValueNotValid(optionValue)){
-    let optionDescription = optionDescripitions[option];
+    const optionDescription = optionDescripitions[option];
     isValid = false;
     error = errorMessageProvider(optionValue, optionDescription);
   }

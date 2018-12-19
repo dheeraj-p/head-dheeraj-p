@@ -7,7 +7,7 @@ const {
 } = require('./error.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
-  let lines = file.getLines();
+  const lines = file.getLines();
   return lines.slice(0, numberOfLines).join("\n");
 };
 
@@ -16,12 +16,12 @@ const getCharsFromHead = function(file, numberOfCharacters) {
 };
 
 const getLinesFromTail = function(file, numberOfLines = 10) {
-  let lines = file.getLines();
+  const lines = file.getLines();
   if (file.contents.endsWith("\n")) {
     lines.pop();
   }
 
-  let tailedLines = lines.slice(-numberOfLines);
+  const tailedLines = lines.slice(-numberOfLines);
   return tailedLines.join("\n");
 };
 
@@ -39,10 +39,10 @@ const createHeading = function(text) {
 
 const runCommand = function(commandData, fileNotFoundMsgProvider, commandOperations) {
   const { option, files, optionValue } = commandData;
-  let commandOperation = commandOperations[option];
-  let contentJoiners = { "-n": "\n\n", "-c": "\n" };
+  const commandOperation = commandOperations[option];
+  const contentJoiners = { "-n": "\n\n", "-c": "\n" };
 
-  let resultedContents = files.map(file => {
+  const resultedContents = files.map(file => {
     if (!file.doesExists) {
       return fileNotFoundMsgProvider(file.name);
     }
@@ -51,8 +51,8 @@ const runCommand = function(commandData, fileNotFoundMsgProvider, commandOperati
       return commandOperation(files[0], optionValue);
     }
 
-    let header = createHeading(file.name);
-    let resultedFileContents = commandOperation(file, optionValue);
+    const header = createHeading(file.name);
+    const resultedFileContents = commandOperation(file, optionValue);
     return header + "\n" + resultedFileContents;
   });
 
@@ -99,7 +99,7 @@ const getOffsetErrorProvider = function(command){
 }
 
 const getFinalOutput = function(inputs, reader, doesFileExists, command){
-  let userInputs = parseInputs(inputs);
+  const userInputs = parseInputs(inputs);
   const offsetValidator = getOffsetValidator(command);
   const offsetErrorProvider = getOffsetErrorProvider(command);
 

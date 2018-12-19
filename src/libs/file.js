@@ -1,5 +1,5 @@
 const createFile = function(name, contents, doesExists){
-  let file = {name, contents, doesExists};
+  const file = {name, contents, doesExists};
   file.getLines = getLines.bind(file);
   return file;
 }
