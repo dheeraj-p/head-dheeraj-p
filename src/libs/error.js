@@ -6,12 +6,12 @@ const getHeadOffsetError = function(offset, optionDescription) {
   return `head: illegal ${optionDescription} count -- ${offset}`;
 };
 
-const newFileNotFoundMsg = function(commandName, fileName) {
+const getFileNotFoundError = function(commandName, fileName) {
   return `${commandName}: ${fileName}: No such file or directory`;
 };
 
 module.exports = {
   getTailOffsetError,
   getHeadOffsetError,
-  newFileNotFoundMsg
+  getFileNotFoundError
 };

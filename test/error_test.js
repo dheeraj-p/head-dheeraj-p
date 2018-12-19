@@ -2,7 +2,7 @@ const assert = require("assert");
 const {
   getTailOffsetError,
   getHeadOffsetError,
-  newFileNotFoundMsg
+  getFileNotFoundError
 } = require("../src/libs/error.js");
 
 describe("getTailOffsetError", function() {
@@ -24,10 +24,10 @@ describe("getHeadOffsetError", function() {
   });
 });
 
-describe("newFileNotFoundMsg", function() {
+describe("getFileNotFoundError", function() {
   it("should return a 'file or directory not found' message with command name and filename", function() {
     assert.equal(
-      newFileNotFoundMsg("head", "sampleFile"),
+      getFileNotFoundError("head", "sampleFile"),
       "head: sampleFile: No such file or directory"
     );
   });

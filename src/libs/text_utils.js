@@ -3,7 +3,7 @@ const { parseInputs, validateOffsetHead, validateOffsetTail } = require("./proce
 const { 
   getHeadOffsetError,
   getTailOffsetError,
-  newFileNotFoundMsg
+  getFileNotFoundError
 } = require('./error.js');
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
@@ -61,13 +61,13 @@ const runCommand = function(commandData, fileNotFoundMsgProvider, commandOperati
 
 const head = function(commandData) {
   const headOperations = { "-n": getLinesFromHead, "-c": getCharsFromHead };
-  const fileNotFoundProvider = newFileNotFoundMsg.bind(null, "head");
+  const fileNotFoundProvider = getFileNotFoundError.bind(null, "head");
   return runCommand(commandData, fileNotFoundProvider, headOperations);
 };
 
 const tail = function(commandData) {
   const headOperations = { "-n": getLinesFromTail, "-c": getCharsFromTail };
-  const fileNotFoundProvider = newFileNotFoundMsg.bind(null, "tail");
+  const fileNotFoundProvider = getFileNotFoundError.bind(null, "tail");
   return runCommand(commandData, fileNotFoundProvider, headOperations);
 };
 
@@ -131,7 +131,6 @@ module.exports = {
   runHead,
   getLinesFromTail,
   getCharsFromTail,
-  newFileNotFoundMsg,
   createCommandData,
   tail,
   runTail
