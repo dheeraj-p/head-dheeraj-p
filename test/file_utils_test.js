@@ -13,7 +13,7 @@ const {
   runTail
 } = require("../src/libs/file_utils.js");
 const { createFile } = require("../src/libs/file.js");
-const { assertObjectList } = require('./utils/object_matcher.js');
+const { assertObjectList } = require("./utils/object_matcher.js");
 
 describe("getLinesFromHead", function() {
   it("should return no lines when any number of lines are required of an empty file", function() {
@@ -148,9 +148,21 @@ describe("head", function() {
 
   it("should return headed content when multiple files are provided for -c option", function() {
     const file1 = createFile("testFile1", "this is test file1 contents", true);
-    const file2 = createFile("testFile2", "And this is test file2 contents", true);
-    const file3 = createFile("testFile3", "I think this is the last file", true);
-    const input = { option: "-c", files: [file1, file2, file3], optionValue: 4 };
+    const file2 = createFile(
+      "testFile2",
+      "And this is test file2 contents",
+      true
+    );
+    const file3 = createFile(
+      "testFile3",
+      "I think this is the last file",
+      true
+    );
+    const input = {
+      option: "-c",
+      files: [file1, file2, file3],
+      optionValue: 4
+    };
     const expectedOutput =
       "==> testFile1 <==\n" +
       "this\n" +
@@ -203,7 +215,11 @@ describe("head", function() {
     const file2 = createFile("testFile2", file2Contents, true);
     const file3 = createFile("testFile3", file3Contents, true);
 
-    const input = { option: "-n", files: [file1, file2, file3], optionValue: 3 };
+    const input = {
+      option: "-n",
+      files: [file1, file2, file3],
+      optionValue: 3
+    };
     const expectedOutput =
       "==> testFile1 <==\n" +
       "This is first line of file 1\n" +
@@ -432,10 +448,14 @@ describe("createCommandData", function() {
     "Hello World"
   );
 
-  const actual = createCommandData(userInputs, helloWorldReader, doesFileExists);
-  
+  const actual = createCommandData(
+    userInputs,
+    helloWorldReader,
+    doesFileExists
+  );
+
   it("should preserve the option given by user", function() {
-    assert.deepEqual(actual.option, '-n');
+    assert.deepEqual(actual.option, "-n");
   });
 
   it("should preserve the option value given by user", function() {
@@ -464,9 +484,21 @@ describe("tail", function() {
 
   it("should return tailed content when multiple files are provided for -c option", function() {
     const file1 = createFile("testFile1", "this is test file1 contents", true);
-    const file2 = createFile("testFile2", "And this is test file2 contents", true);
-    const file3 = createFile("testFile3", "I think this is the last file", true);
-    const input = { option: "-c", files: [file1, file2, file3], optionValue: 4 };
+    const file2 = createFile(
+      "testFile2",
+      "And this is test file2 contents",
+      true
+    );
+    const file3 = createFile(
+      "testFile3",
+      "I think this is the last file",
+      true
+    );
+    const input = {
+      option: "-c",
+      files: [file1, file2, file3],
+      optionValue: 4
+    };
     const expectedOutput =
       "==> testFile1 <==\n" +
       "ents\n" +
@@ -519,7 +551,11 @@ describe("tail", function() {
     const file2 = createFile("testFile2", file2Contents, true);
     const file3 = createFile("testFile3", file3Contents, true);
 
-    const input = { option: "-n", files: [file1, file2, file3], optionValue: 3 };
+    const input = {
+      option: "-n",
+      files: [file1, file2, file3],
+      optionValue: 3
+    };
     const expectedOutput =
       "==> testFile1 <==\n" +
       "this is third line 1\n" +

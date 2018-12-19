@@ -1,11 +1,11 @@
 const assert = require("assert");
-const { zip } = require('./array.js');
- 
+const { zip } = require("./array.js");
+
 const assertObject = function(actual, expected, keysToMatch) {
   const unmatchedKeys = keysToMatch.filter(
     key => actual[key] !== expected[key]
   );
-  
+
   const assertMessages = unmatchedKeys.map(unmatchedKey =>
     getAssertMessage(unmatchedKey, actual[unmatchedKey], expected[unmatchedKey])
   );

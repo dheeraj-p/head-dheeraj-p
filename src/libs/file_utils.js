@@ -1,13 +1,20 @@
 const { createFile } = require("./file.js");
-const { parseInputs, validateOffsetHead, validateOffsetTail } = require("./process_input.js");
-const { 
+const {
+  parseInputs,
+  validateOffsetHead,
+  validateOffsetTail
+} = require("./process_input.js");
+const {
   getHeadOffsetError,
   getTailOffsetError,
   getFileNotFoundError
-} = require('./error.js');
+} = require("./error.js");
 
 const getLinesFromHead = function(file, numberOfLines = 10) {
-  return file.getLines().slice(0, numberOfLines).join("\n");
+  return file
+    .getLines()
+    .slice(0, numberOfLines)
+    .join("\n");
 };
 
 const getCharsFromHead = function(file, numberOfCharacters) {
@@ -36,7 +43,11 @@ const createHeading = function(text) {
   return "==> " + text + " <==";
 };
 
-const runCommand = function(commandData, fileNotFoundMsgProvider, commandOperations) {
+const runCommand = function(
+  commandData,
+  fileNotFoundMsgProvider,
+  commandOperations
+) {
   const { option, files, optionValue } = commandData;
   const commandOperation = commandOperations[option];
   const contentJoiners = { "-n": "\n\n", "-c": "\n" };
@@ -87,31 +98,38 @@ const createCommandData = function(userInputs, reader, doesFileExists) {
   return commandData;
 };
 
-const getOffsetValidator = function(command){
-  const validators = {"head": validateOffsetHead, "tail": validateOffsetTail};
+const getOffsetValidator = function(command) {
+  const validators = { head: validateOffsetHead, tail: validateOffsetTail };
   return validators[command];
-}
+};
 
-const getOffsetErrorProvider = function(command){
-  const offsetErrorProviders = {"head": getHeadOffsetError, "tail": getTailOffsetError};
+const getOffsetErrorProvider = function(command) {
+  const offsetErrorProviders = {
+    head: getHeadOffsetError,
+    tail: getTailOffsetError
+  };
   return offsetErrorProviders[command];
-}
+};
 
-const getFinalOutput = function(inputs, reader, doesFileExists, command){
+const getFinalOutput = function(inputs, reader, doesFileExists, command) {
   const userInputs = parseInputs(inputs);
   const offsetValidator = getOffsetValidator(command);
   const offsetErrorProvider = getOffsetErrorProvider(command);
 
-  const validatedOffset = offsetValidator(userInputs.optionValue, offsetErrorProvider,userInputs.option);
+  const validatedOffset = offsetValidator(
+    userInputs.optionValue,
+    offsetErrorProvider,
+    userInputs.option
+  );
   if (!validatedOffset.isValid) {
     return validatedOffset.error;
   }
 
   const commandData = createCommandData(userInputs, reader, doesFileExists);
-  const commandExecutor = {head, tail};
+  const commandExecutor = { head, tail };
 
   return commandExecutor[command](commandData);
-}
+};
 
 const runHead = function(inputs, reader, doesFileExists) {
   return getFinalOutput(inputs, reader, doesFileExists, "head");
@@ -133,4 +151,4 @@ module.exports = {
   createCommandData,
   tail,
   runTail
-}
+};
