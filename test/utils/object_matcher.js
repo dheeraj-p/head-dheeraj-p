@@ -10,8 +10,8 @@ const assertObject = function(actual, expected, keysToMatch) {
     getAssertMessage(unmatchedKey, actual[unmatchedKey], expected[unmatchedKey])
   );
 
-  const didExpectationMet = unmatchedKeys.length == 0;
-  assert.equal(didExpectationMet, true, assertMessages.join("\n"));
+  const didExpectationMeet = unmatchedKeys.length == 0;
+  assert.equal(didExpectationMeet, true, assertMessages.join("\n"));
 };
 
 const getAssertMessage = function(key, actual, expected) {
