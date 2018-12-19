@@ -79,12 +79,12 @@ const createCommandData = function(userInputs, reader, doesFileExists) {
     return createFile(fileName, "", false);
   });
 
-  let headData = {
+  let commandData = {
     option: userInputs.option,
     optionValue: userInputs.optionValue,
     files
   };
-  return headData;
+  return commandData;
 };
 
 const getOffsetValidator = function(command){
