@@ -15,6 +15,19 @@ const {
 const { createFile } = require("../src/libs/file.js");
 const { assertObjectList } = require("./utils/object_matcher.js");
 
+const elevenLinesText =
+  "This is line 1\n" +
+  "This is line 2\n" +
+  "This is line 3\n" +
+  "This is line 4\n" +
+  "This is line 5\n" +
+  "This is line 6\n" +
+  "This is line 7\n" +
+  "This is line 8\n" +
+  "This is line 9\n" +
+  "This is line 10\n" +
+  "This is line 11";
+
 describe("getLinesFromHead", function() {
   it("should return no lines when any number of lines are required of an empty file", function() {
     const file = createFile("testFile", "", true);
@@ -22,21 +35,8 @@ describe("getLinesFromHead", function() {
   });
 
   it("should return 10 lines from top by default when number of lines is not specified", function() {
-    const fileContents =
-      "This is line 1\n" +
-      "This is line 2\n" +
-      "This is line 3\n" +
-      "This is line 4\n" +
-      "This is line 5\n" +
-      "This is line 6\n" +
-      "This is line 7\n" +
-      "This is line 8\n" +
-      "This is line 9\n" +
-      "This is line 10\n" +
-      "This is line 11";
-
+    const fileContents = elevenLinesText;
     const file = createFile("testFile", fileContents, true);
-
     const expectedOutput =
       "This is line 1\n" +
       "This is line 2\n" +
@@ -53,21 +53,8 @@ describe("getLinesFromHead", function() {
   });
 
   it("should return lines from top when number of lines is specified for a file", function() {
-    const fileContents =
-      "This is line 1\n" +
-      "This is line 2\n" +
-      "This is line 3\n" +
-      "This is line 4\n" +
-      "This is line 5\n" +
-      "This is line 6\n" +
-      "This is line 7\n" +
-      "This is line 8\n" +
-      "This is line 9\n" +
-      "This is line 10\n" +
-      "This is line 11";
-
+    const fileContents = elevenLinesText;
     const file = createFile("testFile", fileContents, true);
-
     const expectedOutput =
       "This is line 1\n" +
       "This is line 2\n" +
@@ -332,19 +319,7 @@ describe("getLinesFromTail", function() {
   });
 
   it("should return 10 lines from bottom by default when number of lines is not specified", function() {
-    const fileContents =
-      "This is line 1\n" +
-      "This is line 2\n" +
-      "This is line 3\n" +
-      "This is line 4\n" +
-      "This is line 5\n" +
-      "This is line 6\n" +
-      "This is line 7\n" +
-      "This is line 8\n" +
-      "This is line 9\n" +
-      "This is line 10\n" +
-      "This is line 11";
-
+    const fileContents = elevenLinesText;
     const file = createFile("testFile", fileContents, true);
 
     const expectedOutput =
@@ -362,55 +337,24 @@ describe("getLinesFromTail", function() {
     assert.deepEqual(getLinesFromTail(file), expectedOutput);
   });
 
+  const lastFiveLinesOfElevenLinesText =
+    "This is line 7\n" +
+    "This is line 8\n" +
+    "This is line 9\n" +
+    "This is line 10\n" +
+    "This is line 11";
+
   it("should return lines from bottom when number of lines is specified for a file", function() {
-    const fileContents =
-      "This is line 1\n" +
-      "This is line 2\n" +
-      "This is line 3\n" +
-      "This is line 4\n" +
-      "This is line 5\n" +
-      "This is line 6\n" +
-      "This is line 7\n" +
-      "This is line 8\n" +
-      "This is line 9\n" +
-      "This is line 10\n" +
-      "This is line 11";
-
+    const fileContents = elevenLinesText;
     const file = createFile("testFile", fileContents, true);
-
-    const expectedOutput =
-      "This is line 7\n" +
-      "This is line 8\n" +
-      "This is line 9\n" +
-      "This is line 10\n" +
-      "This is line 11";
-
+    const expectedOutput = lastFiveLinesOfElevenLinesText;
     assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
   });
 
   it("should return lines from bottom ignoring last empty line when number of lines is specified for a file", function() {
-    const fileContents =
-      "This is line 1\n" +
-      "This is line 2\n" +
-      "This is line 3\n" +
-      "This is line 4\n" +
-      "This is line 5\n" +
-      "This is line 6\n" +
-      "This is line 7\n" +
-      "This is line 8\n" +
-      "This is line 9\n" +
-      "This is line 10\n" +
-      "This is line 11\n";
-
+    const fileContents = elevenLinesText;
     const file = createFile("testFile", fileContents, true);
-
-    const expectedOutput =
-      "This is line 7\n" +
-      "This is line 8\n" +
-      "This is line 9\n" +
-      "This is line 10\n" +
-      "This is line 11";
-
+    const expectedOutput = lastFiveLinesOfElevenLinesText;
     assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
   });
 });
