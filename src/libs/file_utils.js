@@ -76,9 +76,9 @@ const head = function(commandData) {
 };
 
 const tail = function(commandData) {
-  const headOperations = { "-n": getLinesFromTail, "-c": getCharsFromTail };
+  const tailOperation = { "-n": getLinesFromTail, "-c": getCharsFromTail };
   const fileNotFoundProvider = getFileNotFoundError.bind(null, "tail");
-  return runCommand(commandData, fileNotFoundProvider, headOperations);
+  return runCommand(commandData, fileNotFoundProvider, tailOperation);
 };
 
 const createCommandData = function(userInputs, reader, doesFileExists) {
