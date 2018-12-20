@@ -26,7 +26,7 @@ const getLinesFromTail = function(file, numberOfLines = 10) {
   if (file.contents.endsWith("\n")) {
     lines.pop();
   }
-
+  
   const tailedLines = lines.slice(-numberOfLines);
   return tailedLines.join("\n");
 };

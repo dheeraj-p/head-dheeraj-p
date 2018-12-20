@@ -125,6 +125,31 @@ describe("read", function() {
   });
 });
 
+const headTailTestData = {
+  fiveLinesText:
+    "This is first line of file\n" +
+    "and this seems to be second line\n" +
+    "this is third line\n" +
+    "I think this is fourth line\n" +
+    "And this seems to be last",
+
+  multipleFilesTest: {
+    fiveLinesText1:
+      "This is first line of file 1\n" +
+      "and this seems to be second line 1\n" +
+      "this is third line 1\n" +
+      "I think this is fourth line 1\n" +
+      "And this seems to be last 1",
+
+    fiveLinesText2:
+      "This is first line of file 2\n" +
+      "and this seems to be second line 2\n" +
+      "this is third line 2\n" +
+      "I think this is fourth line 2\n" +
+      "And this seems to be last 2"
+  }
+};
+
 describe("head", function() {
   it("should return headed content when only one file is provided for -c option", function() {
     const file = createFile("testFile", "this is test file contents", true);
@@ -161,12 +186,7 @@ describe("head", function() {
   });
 
   it("should return headed content when only one file is provided for -n option", function() {
-    const fileContents =
-      "This is first line of file\n" +
-      "and this seems to be second line\n" +
-      "this is third line\n" +
-      "I think this is fourth line\n" +
-      "And this seems to be last";
+    const fileContents = headTailTestData.fiveLinesText;
     const file = createFile("testFile", fileContents, true);
     const input = { option: "-n", files: [file], optionValue: 3 };
     const expectedOutput =
@@ -177,34 +197,15 @@ describe("head", function() {
   });
 
   it("should return headed content when mulitiple files are provided for -n option", function() {
-    const file1Contents =
-      "This is first line of file 1\n" +
-      "and this seems to be second line 1\n" +
-      "this is third line 1\n" +
-      "I think this is fourth line 1\n" +
-      "And this seems to be last 1";
-
-    const file2Contents =
-      "This is first line of file 2\n" +
-      "and this seems to be second line 2\n" +
-      "this is third line 2\n" +
-      "I think this is fourth line 2\n" +
-      "And this seems to be last 2";
-
-    const file3Contents =
-      "This is first line of file 3\n" +
-      "and this seems to be second line 3\n" +
-      "this is third line 3\n" +
-      "I think this is fourth line 3\n" +
-      "And this seems to be last 3";
+    const file1Contents = headTailTestData.multipleFilesTest.fiveLinesText1;
+    const file2Contents = headTailTestData.multipleFilesTest.fiveLinesText2;
 
     const file1 = createFile("testFile1", file1Contents, true);
     const file2 = createFile("testFile2", file2Contents, true);
-    const file3 = createFile("testFile3", file3Contents, true);
 
     const input = {
       option: "-n",
-      files: [file1, file2, file3],
+      files: [file1, file2],
       optionValue: 3
     };
     const expectedOutput =
@@ -215,11 +216,7 @@ describe("head", function() {
       "==> testFile2 <==\n" +
       "This is first line of file 2\n" +
       "and this seems to be second line 2\n" +
-      "this is third line 2\n\n" +
-      "==> testFile3 <==\n" +
-      "This is first line of file 3\n" +
-      "and this seems to be second line 3\n" +
-      "this is third line 3";
+      "this is third line 2";
 
     assert.deepEqual(head(input), expectedOutput);
   });
@@ -352,7 +349,7 @@ describe("getLinesFromTail", function() {
   });
 
   it("should return lines from bottom ignoring last empty line when number of lines is specified for a file", function() {
-    const fileContents = elevenLinesText;
+    const fileContents = elevenLinesText + "\n";
     const file = createFile("testFile", fileContents, true);
     const expectedOutput = lastFiveLinesOfElevenLinesText;
     assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
@@ -454,12 +451,7 @@ describe("tail", function() {
   });
 
   it("should return tailed content when only one file is provided for -n option", function() {
-    const fileContents =
-      "This is first line of file\n" +
-      "and this seems to be second line\n" +
-      "this is third line\n" +
-      "I think this is fourth line\n" +
-      "And this seems to be last";
+    const fileContents = headTailTestData.fiveLinesText;
     const file = createFile("testFile", fileContents, true);
     const input = { option: "-n", files: [file], optionValue: 3 };
     const expectedOutput =
@@ -470,34 +462,15 @@ describe("tail", function() {
   });
 
   it("should return tailed content when mulitiple files are provided for -n option", function() {
-    const file1Contents =
-      "This is first line of file 1\n" +
-      "and this seems to be second line 1\n" +
-      "this is third line 1\n" +
-      "I think this is fourth line 1\n" +
-      "And this seems to be last 1";
-
-    const file2Contents =
-      "This is first line of file 2\n" +
-      "and this seems to be second line 2\n" +
-      "this is third line 2\n" +
-      "I think this is fourth line 2\n" +
-      "And this seems to be last 2";
-
-    const file3Contents =
-      "This is first line of file 3\n" +
-      "and this seems to be second line 3\n" +
-      "this is third line 3\n" +
-      "I think this is fourth line 3\n" +
-      "And this seems to be last 3";
+    const file1Contents = headTailTestData.multipleFilesTest.fiveLinesText1;
+    const file2Contents = headTailTestData.multipleFilesTest.fiveLinesText2;
 
     const file1 = createFile("testFile1", file1Contents, true);
     const file2 = createFile("testFile2", file2Contents, true);
-    const file3 = createFile("testFile3", file3Contents, true);
 
     const input = {
       option: "-n",
-      files: [file1, file2, file3],
+      files: [file1, file2],
       optionValue: 3
     };
     const expectedOutput =
@@ -508,11 +481,7 @@ describe("tail", function() {
       "==> testFile2 <==\n" +
       "this is third line 2\n" +
       "I think this is fourth line 2\n" +
-      "And this seems to be last 2\n\n" +
-      "==> testFile3 <==\n" +
-      "this is third line 3\n" +
-      "I think this is fourth line 3\n" +
-      "And this seems to be last 3";
+      "And this seems to be last 2";
 
     assert.deepEqual(tail(input), expectedOutput);
   });
