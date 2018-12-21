@@ -1,9 +1,6 @@
 const getLongOption = function(shortOption) {
   const options = { "-n": "line", "-c": "byte" };
-  let longOption = options[shortOption];
-  if (longOption == undefined) {
-    longOption = shortOption;
-  }
+  const longOption = options[shortOption];
   return longOption;
 };
 
