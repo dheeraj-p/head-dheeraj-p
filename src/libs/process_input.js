@@ -43,13 +43,13 @@ const parseInputs = function(inputs){
   return getNormalOptionInputs(inputs);
 }
 
-const isOptionValueNotValid = optionValue => optionValue < 1 || !isFinite(optionValue);
+const isOptionValueInvalid = optionValue => optionValue < 1 || !isFinite(optionValue);
 
 const validateOffsetHead = function(optionValue, errorMessageProvider, option){
   let isValid = true, error = "";
   const optionDescripitions = {'-c': "byte", "-n": "line"};
 
-  if(isOptionValueNotValid(optionValue)){
+  if(isOptionValueInvalid(optionValue)){
     const optionDescription = optionDescripitions[option];
     isValid = false;
     error = errorMessageProvider(optionValue, optionDescription);
