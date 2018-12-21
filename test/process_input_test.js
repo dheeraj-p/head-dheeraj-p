@@ -4,7 +4,7 @@ const {
   validateOffsetHead,
   validateOffsetTail,
   isOptionSpecified,
-  newParsedInputs
+  createParsedInputs
 } = require("../src/libs/process_input.js");
 const {
   getTailOffsetError,
@@ -132,7 +132,7 @@ describe("isOptionSpecified", function() {
   });
 });
 
-describe("newParsedInputs", function() {
+describe("createParsedInputs", function() {
   it("should return encapsulated inputs for given option, optionValue and fileNames", function() {
     const expectedOutput = {
       option: "-n",
@@ -140,7 +140,7 @@ describe("newParsedInputs", function() {
       fileNames: ["file1", "file2"]
     };
     assert.deepEqual(
-      newParsedInputs("-n", 10, ["file1", "file2"]),
+      createParsedInputs("-n", 10, ["file1", "file2"]),
       expectedOutput
     );
   });

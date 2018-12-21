@@ -12,16 +12,16 @@ const isNumberOption = option => isFinite(option.substr(1, 1));
 
 const isOptionWithValue = option => option.length > 2;
 
-const newParsedInputs = function(option, optionValue, fileNames) {
+const createParsedInputs = function(option, optionValue, fileNames) {
   return { option, optionValue, fileNames };
 };
 
 const getNumberOptionInputs = inputs => {
-  return newParsedInputs("line", inputs[0].substr(1), inputs.slice(1));
+  return createParsedInputs("line", inputs[0].substr(1), inputs.slice(1));
 };
 
 const getOptionWithValueInputs = inputs => {
-  return newParsedInputs(
+  return createParsedInputs(
     getLongOption(inputs[0].slice(0, 2)),
     inputs[0].substr(2),
     inputs.slice(1)
@@ -29,11 +29,11 @@ const getOptionWithValueInputs = inputs => {
 };
 
 const getNormalOptionInputs = inputs => {
-  return newParsedInputs(getLongOption(inputs[0]), inputs[1], inputs.slice(2));
+  return createParsedInputs(getLongOption(inputs[0]), inputs[1], inputs.slice(2));
 };
 
 const getDefaultInputs = inputs => {
-  return newParsedInputs("line", 10, [...inputs]);
+  return createParsedInputs("line", 10, [...inputs]);
 };
 
 const parseInputs = function(inputs) {
@@ -91,6 +91,6 @@ module.exports = {
   getNumberOptionInputs,
   getOptionWithValueInputs,
   getDefaultInputs,
-  newParsedInputs,
+  createParsedInputs,
   validateOffsetTail
 };
