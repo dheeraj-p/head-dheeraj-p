@@ -151,14 +151,14 @@ const headTailTestData = {
 };
 
 describe("head", function() {
-  it("should return headed content when only one file is provided for -c option", function() {
+  it("should return headed content when only one file is provided for byte option", function() {
     const file = createFile("testFile", "this is test file contents", true);
-    const input = { option: "-c", files: [file], optionValue: 4 };
+    const input = { option: "byte", files: [file], optionValue: 4 };
     const expectedOutput = "this";
     assert.deepEqual(head(input), expectedOutput);
   });
 
-  it("should return headed content when multiple files are provided for -c option", function() {
+  it("should return headed content when multiple files are provided for byte option", function() {
     const file1 = createFile("testFile1", "this is test file1 contents", true);
     const file2 = createFile(
       "testFile2",
@@ -171,7 +171,7 @@ describe("head", function() {
       true
     );
     const input = {
-      option: "-c",
+      option: "byte",
       files: [file1, file2, file3],
       optionValue: 4
     };
@@ -185,10 +185,10 @@ describe("head", function() {
     assert.deepEqual(head(input), expectedOutput);
   });
 
-  it("should return headed content when only one file is provided for -n option", function() {
+  it("should return headed content when only one file is provided for line option", function() {
     const fileContents = headTailTestData.fiveLinesText;
     const file = createFile("testFile", fileContents, true);
-    const input = { option: "-n", files: [file], optionValue: 3 };
+    const input = { option: "line", files: [file], optionValue: 3 };
     const expectedOutput =
       "This is first line of file\n" +
       "and this seems to be second line\n" +
@@ -196,7 +196,7 @@ describe("head", function() {
     assert.deepEqual(head(input), expectedOutput);
   });
 
-  it("should return headed content when mulitiple files are provided for -n option", function() {
+  it("should return headed content when mulitiple files are provided for line option", function() {
     const file1Contents = headTailTestData.multipleFilesTest.fiveLinesText1;
     const file2Contents = headTailTestData.multipleFilesTest.fiveLinesText2;
 
@@ -204,7 +204,7 @@ describe("head", function() {
     const file2 = createFile("testFile2", file2Contents, true);
 
     const input = {
-      option: "-n",
+      option: "line",
       files: [file1, file2],
       optionValue: 3
     };
@@ -416,14 +416,14 @@ describe("createCommandData", function() {
 });
 
 describe("tail", function() {
-  it("should return tailed content when only one file is provided for -c option", function() {
+  it("should return tailed content when only one file is provided for byte option", function() {
     const file = createFile("testFile", "this is test file contents", true);
-    const input = { option: "-c", files: [file], optionValue: 4 };
+    const input = { option: "byte", files: [file], optionValue: 4 };
     const expectedOutput = "ents";
     assert.deepEqual(tail(input), expectedOutput);
   });
 
-  it("should return tailed content when multiple files are provided for -c option", function() {
+  it("should return tailed content when multiple files are provided for byte option", function() {
     const file1 = createFile("testFile1", "this is test file1 contents", true);
     const file2 = createFile(
       "testFile2",
@@ -436,7 +436,7 @@ describe("tail", function() {
       true
     );
     const input = {
-      option: "-c",
+      option: "byte",
       files: [file1, file2, file3],
       optionValue: 4
     };
@@ -450,10 +450,10 @@ describe("tail", function() {
     assert.deepEqual(tail(input), expectedOutput);
   });
 
-  it("should return tailed content when only one file is provided for -n option", function() {
+  it("should return tailed content when only one file is provided for line option", function() {
     const fileContents = headTailTestData.fiveLinesText;
     const file = createFile("testFile", fileContents, true);
-    const input = { option: "-n", files: [file], optionValue: 3 };
+    const input = { option: "line", files: [file], optionValue: 3 };
     const expectedOutput =
       "this is third line\n" +
       "I think this is fourth line\n" +
@@ -461,7 +461,7 @@ describe("tail", function() {
     assert.deepEqual(tail(input), expectedOutput);
   });
 
-  it("should return tailed content when mulitiple files are provided for -n option", function() {
+  it("should return tailed content when mulitiple files are provided for line option", function() {
     const file1Contents = headTailTestData.multipleFilesTest.fiveLinesText1;
     const file2Contents = headTailTestData.multipleFilesTest.fiveLinesText2;
 
@@ -469,7 +469,7 @@ describe("tail", function() {
     const file2 = createFile("testFile2", file2Contents, true);
 
     const input = {
-      option: "-n",
+      option: "line",
       files: [file1, file2],
       optionValue: 3
     };

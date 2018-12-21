@@ -14,7 +14,7 @@ const {
 describe("parseInputs", function() {
   it("should return inputs in form of object containing all the file names in default case", function() {
     const expectedOutput = {
-      option: "-n",
+      option: "line",
       fileNames: ["file1", "file2"],
       optionValue: "10"
     };
@@ -23,7 +23,7 @@ describe("parseInputs", function() {
 
   it("should return inputs in form of object when option is provided with one file", function() {
     const expectedOutput = {
-      option: "-n",
+      option: "line",
       fileNames: ["file"],
       optionValue: "4"
     };
@@ -32,7 +32,7 @@ describe("parseInputs", function() {
 
   it("should return inputs in form of object when option is provided with multiple files", function() {
     const expectedOutput = {
-      option: "-n",
+      option: "line",
       fileNames: ["file1", "file2", "file3"],
       optionValue: "4"
     };
@@ -44,7 +44,7 @@ describe("parseInputs", function() {
 
   it("should return inputs in form of object when lines count is provided without option", function() {
     const expectedOutput = {
-      option: "-n",
+      option: "line",
       fileNames: ["file1", "file2", "file3"],
       optionValue: "4"
     };
@@ -56,7 +56,7 @@ describe("parseInputs", function() {
 
   it("should return inputs in form of object when option and offset are provided separately", function() {
     const expectedOutput = {
-      option: "-n",
+      option: "line",
       fileNames: ["file1", "file2", "file3"],
       optionValue: "4"
     };
@@ -75,7 +75,7 @@ describe("validateOffsetHead", function() {
       error: "head: illegal line count -- 0"
     };
     assert.deepEqual(
-      validateOffsetHead(0, errorMessageProvider, "-n"),
+      validateOffsetHead(0, errorMessageProvider, "line"),
       expectedOutput
     );
   });
@@ -86,7 +86,7 @@ describe("validateOffsetHead", function() {
       error: "head: illegal line count -- asdf"
     };
     assert.deepEqual(
-      validateOffsetHead("asdf", errorMessageProvider, "-n"),
+      validateOffsetHead("asdf", errorMessageProvider, "line"),
       expectedOutput
     );
   });
@@ -97,7 +97,7 @@ describe("validateOffsetHead", function() {
       error: "head: illegal byte count -- 0"
     };
     assert.deepEqual(
-      validateOffsetHead(0, errorMessageProvider, "-c"),
+      validateOffsetHead(0, errorMessageProvider, "byte"),
       expectedOutput
     );
   });
@@ -108,7 +108,7 @@ describe("validateOffsetHead", function() {
       error: "head: illegal byte count -- asdf"
     };
     assert.deepEqual(
-      validateOffsetHead("asdf", errorMessageProvider, "-c"),
+      validateOffsetHead("asdf", errorMessageProvider, "byte"),
       expectedOutput
     );
   });
@@ -116,7 +116,7 @@ describe("validateOffsetHead", function() {
   it("Should return no error when a valid offset is given for any option", function() {
     const expectedOutput = { isValid: true, error: "" };
     assert.deepEqual(
-      validateOffsetHead(1, errorMessageProvider, "-n"),
+      validateOffsetHead(1, errorMessageProvider, "line"),
       expectedOutput
     );
   });

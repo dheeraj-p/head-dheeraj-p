@@ -26,7 +26,7 @@ const getLinesFromTail = function(file, numberOfLines = 10) {
   if (file.contents.endsWith("\n")) {
     lines.pop();
   }
-  
+
   const tailedLines = lines.slice(-numberOfLines);
   return tailedLines.join("\n");
 };
@@ -50,7 +50,7 @@ const runCommand = function(
 ) {
   const { option, files, optionValue } = commandData;
   const commandOperation = commandOperations[option];
-  const contentJoiners = { "-n": "\n\n", "-c": "\n" };
+  const contentJoiners = { line: "\n\n", byte: "\n" };
 
   const resultedContents = files.map(file => {
     if (!file.doesExists) {
@@ -70,13 +70,13 @@ const runCommand = function(
 };
 
 const head = function(commandData) {
-  const headOperations = { "-n": getLinesFromHead, "-c": getCharsFromHead };
+  const headOperations = { line: getLinesFromHead, byte: getCharsFromHead };
   const fileNotFoundProvider = getFileNotFoundError.bind(null, "head");
   return runCommand(commandData, fileNotFoundProvider, headOperations);
 };
 
 const tail = function(commandData) {
-  const tailOperation = { "-n": getLinesFromTail, "-c": getCharsFromTail };
+  const tailOperation = { line: getLinesFromTail, byte: getCharsFromTail };
   const fileNotFoundProvider = getFileNotFoundError.bind(null, "tail");
   return runCommand(commandData, fileNotFoundProvider, tailOperation);
 };
