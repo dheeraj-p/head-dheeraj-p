@@ -2,4 +2,13 @@ const take = function(count, list) {
   return list.slice(0, count);
 };
 
-module.exports = { take };
+const zip = function(list1, list2){
+  let maxLength = Math.min(list1.length, list2.length);
+  let zippedList = [];
+  for(let index = 0; index < maxLength; index++){
+    zippedList[index] = [list1[index],list2[index]];
+  };
+  return zippedList;
+};
+
+module.exports = { take, zip };
