@@ -4,21 +4,21 @@ const {
   validateOffsetHead,
   validateOffsetTail
 } = require("./process_input.js");
+
 const {
   getHeadOffsetError,
   getTailOffsetError,
   getFileNotFoundError
 } = require("./error.js");
 
+const { take } = require("../utils/array.js");
+
 const getLinesFromHead = function(file, numberOfLines = 10) {
-  return file
-    .getLines()
-    .slice(0, numberOfLines)
-    .join("\n");
+  return take(numberOfLines, file.getLines()).join("\n");
 };
 
 const getCharsFromHead = function(file, numberOfCharacters) {
-  return file.contents.substr(0, numberOfCharacters);
+  return take(numberOfCharacters, file.contents);
 };
 
 const getLinesFromTail = function(file, numberOfLines = 10) {
