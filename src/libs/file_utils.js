@@ -23,10 +23,6 @@ const getCharsFromHead = function(file, numberOfCharacters) {
 
 const getLinesFromTail = function(file, numberOfLines = 10) {
   const lines = file.getLines();
-  if (file.contents.endsWith("\n")) {
-    lines.pop();
-  }
-
   const tailedLines = lines.slice(-numberOfLines);
   return tailedLines.join("\n");
 };

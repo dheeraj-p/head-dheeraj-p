@@ -347,13 +347,6 @@ describe("getLinesFromTail", function() {
     const expectedOutput = lastFiveLinesOfElevenLinesText;
     assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
   });
-
-  it("should return lines from bottom ignoring last empty line when number of lines is specified for a file", function() {
-    const fileContents = elevenLinesText + "\n";
-    const file = createFile("testFile", fileContents, true);
-    const expectedOutput = lastFiveLinesOfElevenLinesText;
-    assert.deepEqual(getLinesFromTail(file, 5), expectedOutput);
-  });
 });
 
 describe("getCharsFromTail", function() {
